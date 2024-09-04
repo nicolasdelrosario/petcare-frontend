@@ -1,0 +1,14 @@
+{
+	"arrowParens": "avoid",
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"endOfLine": "auto",
+	"jsxSingleQuote": true,
+	"plugins": ["prettier-plugin-tailwindcss"],
+	"semi": false,
+	"singleQuote": true,
+	"tabWidth": 2,
+	"tailwindConfig": "./tailwind.config.ts",
+	"trailingComma": "es5",
+	"useTabs": true
+}
