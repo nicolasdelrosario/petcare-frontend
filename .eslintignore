@@ -1,0 +1,15 @@
+#Ignore list 
+pnpm-lock.yaml
+
+# Eslint
+.eslintrc.json
+.eslintignore
+
+# Prettier
+.prettierrc
+
+# Next
+.next
+
+# Node
+node_modules
