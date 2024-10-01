@@ -94,6 +94,55 @@ export default function Home() {
 					</div>
 				</MaxWidthWrapper>
 			</section>
+
+			{/* cta section */}
+			<section className='py-24'>
+				<MaxWidthWrapper>
+					<div className='grid place-content-center rounded-lg border-2 border-primary p-8'>
+						<h2 className='mt-2 text-balance text-center text-4xl font-bold leading-relaxed tracking-tight text-gray-900 md:text-5xl md:!leading-tight lg:text-6xl'>
+							<span className='bg-primary px-2 text-white'>Transforma</span> la
+							Gestión de tu Clínica Veterinaria Hoy
+						</h2>
+
+						<div className='xl:grid xl:grid-cols-3 xl:gap-x-12'>
+							<div className='col-span-2 text-center md:text-start'>
+								<h3 className='mt-12 max-w-prose text-balance text-2xl font-semibold md:text-wrap'>
+									¿Listo para mejorar la eficiencia de tu clínica y brindar una
+									mejor atención a tus clientes?
+								</h3>
+								<p className='mt-4 max-w-prose text-balance text-lg md:text-wrap'>
+									Simplifica cada aspecto de la gestión y lleva tu clínica al
+									siguiente nivel. Nuestra plataforma está diseñada para
+									ayudarte a ahorrar tiempo, reducir errores y optimizar tu
+									trabajo diario.
+								</p>
+							</div>
+							<div className='col-span-full flex flex-col justify-center sm:flex-row xl:col-span-1 xl:flex-col xl:items-center'>
+								<Link
+									href='/'
+									className={buttonVariants({
+										size: 'lg',
+										className: 'mt-12 sm:mr-8 xl:mr-0',
+									})}
+								>
+									Empezar Ahora
+									<ArrowRightIcon className='ml-1.5 h-5 w-5' />
+								</Link>
+								<Link
+									href='/'
+									className={buttonVariants({
+										size: 'lg',
+										variant: 'outline',
+										className: 'mt-8 sm:mt-12',
+									})}
+								>
+									Solicitar una Demo
+								</Link>
+							</div>
+						</div>
+					</div>
+				</MaxWidthWrapper>
+			</section>
 		</div>
 	)
 }
