@@ -11,7 +11,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 
 // Components
-import { Navbar } from '@/components'
+import { Navbar, Footer } from '@/components'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -34,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 				<main className='grainy-light flex min-h-[calc(100vh-3.5rem-1px)] flex-col'>
 					<div className='flex h-full flex-1 flex-col'>{children}</div>
 				</main>
-				<footer></footer>
+				<Footer />
 			</body>
 		</html>
 	)
