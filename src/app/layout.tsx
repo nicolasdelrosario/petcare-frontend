@@ -2,7 +2,7 @@
 import constructMetadata from '@/util/constructMetadata'
 
 // Font Family
-import { Recursive } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 
 // CSS
 import './globals.css'
@@ -13,7 +13,10 @@ import { cn } from '@/lib/utils'
 // Components
 import { Navbar } from '@/components'
 
-const recursive = Recursive({ subsets: ['latin'] })
+const poppins = Poppins({
+	subsets: ['latin'],
+	weight: ['400', '500', '600', '700'],
+})
 
 export const metadata = constructMetadata()
 
@@ -24,7 +27,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang='es'>
-			<body className={cn('min-h-screen', recursive.className)}>
+			<body className={cn('min-h-screen', poppins.className)}>
 				<header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
 					<Navbar />
 				</header>
