@@ -35,7 +35,7 @@ export default function Navbar() {
 						href='/'
 						className={buttonVariants({
 							size: 'sm',
-							variant: 'ghost',
+							variant: 'outline',
 							className: 'text-xs sm:text-sm',
 						})}
 					>
