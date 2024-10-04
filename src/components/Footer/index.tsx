@@ -16,7 +16,7 @@ export default function Footer() {
 					<div className='flex items-center justify-center'>
 						<div className='flex space-x-8'>
 							<Link
-								href='/'
+								href='/terminos-condiciones'
 								className='text-sm text-muted-foreground hover:text-gray-600'
 							>
 								Términos y condiciones
