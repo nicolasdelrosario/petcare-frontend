@@ -32,7 +32,7 @@ export default function Navbar() {
 					<div className='hidden h-8 w-px bg-zinc-200 sm:block' />
 
 					<Link
-						href='/'
+						href='/login'
 						className={buttonVariants({
 							size: 'sm',
 							variant: 'outline',
