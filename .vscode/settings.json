@@ -1,3 +1,9 @@
 {
-	"conventionalCommits.scopes": ["dashboard", "global"]
+	"conventionalCommits.scopes": [
+		"dashboard",
+		"dashboard/appointments",
+		"dashboard/patients",
+		"dashboard/pets",
+		"global"
+	]
 }
