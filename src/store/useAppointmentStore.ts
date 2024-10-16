@@ -1,28 +1,70 @@
 import { create } from 'zustand'
 
 // Services
-import { getAppointments } from '@/services/appointment.service'
+import {
+	getAppointments,
+	getAppointment,
+	updateAppointment,
+	deleteAppointment,
+} from '@/services/appointment.service'
 
 // Interfaces
 import { Appointment } from '@/interfaces/Appointment'
 
 interface AppointmentStore {
 	appointments: Appointment[]
+	appointment: Appointment | null
 	loading: boolean
 	getAppointments: () => Promise<void>
+	updateAppointment: (
+		appointmentId: number,
+		data: Partial<Appointment>
+	) => Promise<{ success: boolean; message: string }>
+	removeAppointment: (
+		appointmentId: number
+	) => Promise<{ success: boolean; message: string }>
 }
 
 export const useAppointmentStore = create<AppointmentStore>(set => ({
 	appointments: [],
-	loading: false,
+	appointment: null,
+	loading: true,
+
 	getAppointments: async () => {
-		set({ loading: true })
+		const appointments = await getAppointments()
+		set({ appointments, loading: false })
+	},
+
+	updateAppointment: async (id: number, data: Partial<Appointment>) => {
 		try {
-			const appointments = await getAppointments()
-			set({ appointments, loading: true })
+			await updateAppointment(id, data)
+			const updatedAppointment = await getAppointment(id)
+			set(state => ({
+				appointments: state.appointments.map(appointment =>
+					appointment.id === id ? updatedAppointment : appointment
+				),
+			}))
+
+			return { success: true, message: 'Cita actualizada correctamente.' }
 		} catch (error) {
-			console.log('Failed to fetch users:', error)
-			set({ loading: false })
+			return {
+				success: false,
+				message: 'No ha sido posible actualizar la cita.',
+			}
+		}
+	},
+
+	removeAppointment: async (id: number) => {
+		try {
+			await deleteAppointment(id)
+			set(state => ({
+				appointments: state.appointments.filter(
+					appointment => appointment.id !== id
+				),
+			}))
+			return { success: true, message: 'Cita eliminada correctamente.' }
+		} catch (error) {
+			return { success: false, message: 'No ha sido posible eliminar la cita.' }
 		}
 	},
 }))
