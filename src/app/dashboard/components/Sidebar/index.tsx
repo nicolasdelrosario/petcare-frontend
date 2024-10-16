@@ -1,11 +1,16 @@
 'use client'
 
-import { useEffect } from 'react'
+// Next
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
+// Utils
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/shadcn/button'
-import { ScrollArea } from '@/components/shadcn/react-scroll-area'
+
+// Shadcn Components
+import { Button, ScrollArea } from '@/components/shadcn'
+
+// Lucide Icons
 import {
 	ChevronLeft,
 	ChevronRight,
