@@ -21,7 +21,7 @@ export function filterOwners(owners: Owner[], searchTerm: string): Owner[] {
 	return owners.filter(
 		owner =>
 			(owner.name && owner.name.toLowerCase().includes(lowerCaseSearchTerm)) ||
-			(owner.dni && owner.dni.toLowerCase().includes(lowerCaseSearchTerm)) ||
-			(owner.email && owner.email.toLowerCase().includes(lowerCaseSearchTerm))
+			(owner.dni && owner.dni.includes(lowerCaseSearchTerm)) ||
+			(owner.phone && owner.phone.includes(lowerCaseSearchTerm))
 	)
 }
