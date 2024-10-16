@@ -16,3 +16,17 @@ export const getAppointment = async (id: number): Promise<Appointment> => {
 	const { data } = await API_BASE.get(`${PATH_APPOINTMENTS}/${id}`)
 	return data
 }
+
+// Update an appointment
+export const updateAppointment = async (
+	id: number,
+	changes: Partial<Appointment>
+): Promise<Appointment> => {
+	const { data } = await API_BASE.put(`${PATH_APPOINTMENTS}/${id}`, changes)
+	return data
+}
+
+// Delete an appointment
+export const deleteAppointment = async (id: number): Promise<void> => {
+	await API_BASE.patch(`${PATH_APPOINTMENTS}/${id}`)
+}
