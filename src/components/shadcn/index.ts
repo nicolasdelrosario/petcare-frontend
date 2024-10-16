@@ -33,3 +33,5 @@ export {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from './alert-dialog'
+
+export { ScrollArea } from './react-scroll-area'
