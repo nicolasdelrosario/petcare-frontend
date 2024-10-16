@@ -4,6 +4,7 @@ import { Appointment } from './Appointment'
 export interface Pet {
 	id: number
 	name: string
+	specie?: string
 	type?: string
 	gender?: boolean
 	weight?: string
