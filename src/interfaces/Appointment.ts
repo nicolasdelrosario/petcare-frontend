@@ -3,7 +3,7 @@ import { User } from './User'
 
 export interface Appointment {
 	id: number
-	date: Date
+	date: Date | string
 	status: boolean
 	reason?: string
 	pet: Pet
