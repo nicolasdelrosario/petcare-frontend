@@ -23,7 +23,7 @@ import {
 } from 'lucide-react'
 
 // Zustand Store
-import { useSidebarStore } from '@/store/useSidebarStore'
+import { useSidebar } from '@/store/useSidebarStore'
 
 const navItems = [
 	{ name: 'Home', href: '/dashboard/home', icon: Home },
@@ -37,7 +37,7 @@ const bottomNavItems = [
 ]
 export default function Sidebar() {
 	const pathname = usePathname()
-	const { open, toggleOpen } = useSidebarStore()
+	const { open, toggleOpen } = useSidebar()
 
 	return (
 		<aside
