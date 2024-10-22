@@ -9,7 +9,7 @@ interface RootLayoutProps {
 }
 
 export default function Layout({ children }: RootLayoutProps) {
-	const { open, compact } = useSidebarStore()
+	const { open } = useSidebarStore()
 
 	return (
 		<div className='flex min-h-screen'>
@@ -17,7 +17,7 @@ export default function Layout({ children }: RootLayoutProps) {
 			<div
 				className={cn(
 					'flex flex-1 flex-col transition-all duration-300',
-					open ? (compact ? 'ml-16' : 'ml-64') : 'ml-16'
+					open ? 'ml-64' : 'ml-16'
 				)}
 			>
 				{children}
