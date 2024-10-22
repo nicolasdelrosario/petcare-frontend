@@ -10,17 +10,17 @@ import { useAppointmentStore } from '@/store/useAppointmentStore'
 import { useToast } from '@/hooks/useToast'
 
 // Interfaces
-import { Appointment } from '@/interfaces/Appointment'
+import { Appointment as AppointmentI } from '@/interfaces/Appointment'
 
 // Format Date
 import { format, parseISO, setHours, setMinutes } from 'date-fns'
 
 // Components
-import { EditableFields, AppointmentInfo } from '../index'
+import { AppointmentEditableFields, Appointment } from '../index'
 import { ActionButtons } from '@/app/dashboard/components'
 
 interface AppointmentDetailsProps {
-	appointment: Appointment
+	appointment: AppointmentI
 }
 
 export default function AppointmentDetails({
@@ -85,13 +85,13 @@ export default function AppointmentDetails({
 	return (
 		<div className='pt-2'>
 			{isEditing ? (
-				<EditableFields
+				<AppointmentEditableFields
 					editedAppointment={editedAppointment}
 					time={time}
 					handleInputChange={handleInputChange}
 				/>
 			) : (
-				<AppointmentInfo appointment={appointment} />
+				<Appointment appointment={appointment} />
 			)}
 			<ActionButtons
 				isEditing={isEditing}

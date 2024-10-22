@@ -1,16 +1,24 @@
+// Interfaces
+import { Appointment } from '@/interfaces/Appointment'
+
+// Shadcn Components
 import { Input, Label } from '@/components/shadcn'
 
-interface EditableFieldsProps {
-	editedAppointment: { date: string; reason: string | undefined }
+interface AppointmentEditableFields {
+	editedAppointment: Partial<Appointment>
 	time: string
 	handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export default function EditableFields({
+export default function AppointmentEditableFields({
 	editedAppointment,
 	time,
 	handleInputChange,
-}: EditableFieldsProps) {
+}: AppointmentEditableFields) {
+	const formattedDate = editedAppointment.date
+		? new Date(editedAppointment.date).toISOString().split('T')[0]
+		: ''
+
 	return (
 		<div className='space-y-4'>
 			<div className='flex flex-col gap-y-1'>
@@ -24,7 +32,7 @@ export default function EditableFields({
 					id='date'
 					name='date'
 					type='date'
-					value={editedAppointment.date}
+					value={formattedDate}
 					onChange={handleInputChange}
 					className='hover:cursor-pointer'
 				/>

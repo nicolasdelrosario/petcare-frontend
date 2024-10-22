@@ -1,12 +1,17 @@
-import { Calendar, Clock, PawPrint, User, NotepadText } from 'lucide-react'
-import { format } from 'date-fns'
-import { Appointment } from '@/interfaces/Appointment'
+// Interfaces
+import { Appointment as IAppointment } from '@/interfaces/Appointment'
 
-interface AppointmentInfoProps {
-	appointment: Appointment
+// Format Date
+import { format } from 'date-fns'
+
+// Lucide Icons
+import { Calendar, Clock, PawPrint, User, NotepadText } from 'lucide-react'
+
+interface AppointmentProps {
+	appointment: IAppointment
 }
 
-export default function AppointmentInfo({ appointment }: AppointmentInfoProps) {
+export default function Appointment({ appointment }: AppointmentProps) {
 	const {
 		pet: { name: petName, owner: { name: ownerName } = {} } = {},
 		date,

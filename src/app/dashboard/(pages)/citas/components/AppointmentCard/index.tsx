@@ -16,7 +16,7 @@ import {
 	CardFooter,
 } from '@/components/shadcn'
 
-// Icons From Lucide React
+// Lucide Icons
 import { Calendar, Clock } from 'lucide-react'
 
 interface AppointmentCardProps {
