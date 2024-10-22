@@ -1,4 +1,16 @@
-// components/OwnersGrid.tsx
+// Next
+import Link from 'next/link'
+
+// Util
+import { cn } from '@/lib/utils'
+
+// Interfaces
+import { Owner } from '@/interfaces/Owner'
+
+// Components
+import { MaxWidthWrapper } from '@/components'
+
+// Shadcn Components
 import {
 	Card,
 	CardContent,
@@ -7,11 +19,9 @@ import {
 	CardFooter,
 	buttonVariants,
 } from '@/components/shadcn'
-import { MaxWidthWrapper } from '@/components'
+
+// Lucide Icons
 import { Phone, IdCard, PawPrint, User } from 'lucide-react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { Owner } from '@/interfaces/Owner'
 
 interface OwnersGridProps {
 	owners: Owner[]
