@@ -20,6 +20,7 @@ export {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
+	DialogFooter,
 } from './dialog'
 
 export {
