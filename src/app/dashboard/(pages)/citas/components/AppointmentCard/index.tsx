@@ -5,7 +5,7 @@ import { Appointment } from '@/interfaces/Appointment'
 import { format } from 'date-fns'
 
 // Components
-import { AppointmentDetailsDialog } from '@/app/dashboard/(pages)/citas/components'
+import { AppointmentDetailsDialog } from '../index'
 
 // Shadcn Components
 import {

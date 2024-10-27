@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 
 // Components
 import { MaxWidthWrapper } from '@/components'
-import AppointmentDetailsDialog from '../AppointmentDetailsDialog'
+import { AppointmentDetailsDialog } from '../index'
 
 // Shadcn Components
 import {
