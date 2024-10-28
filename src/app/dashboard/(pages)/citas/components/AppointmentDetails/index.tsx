@@ -48,7 +48,7 @@ export default function AppointmentDetails({
 		updateEditedAppointment(name, value)
 	}
 
-	const handleSave = async () => {
+	const handleUpdate = async () => {
 		if (!editedAppointment.reason || !time) {
 			return toast({
 				title: 'Error',
@@ -95,7 +95,7 @@ export default function AppointmentDetails({
 			)}
 			<ActionButtons
 				isEditing={isEditing}
-				handleSave={handleSave}
+				handleUpdate={handleUpdate}
 				setIsEditing={setIsEditing}
 				handleDelete={handleDelete}
 			/>
