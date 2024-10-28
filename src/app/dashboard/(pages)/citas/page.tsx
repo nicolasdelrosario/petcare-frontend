@@ -8,7 +8,7 @@ import useAppointment from '@/hooks/useAppointment'
 import { useViewModeStore } from '@/store/useViewModeStore'
 
 // Util
-import { filterAppointments } from '@/util/filters'
+import { filterAppointments } from '@/util/filters/appointmet-filter'
 
 // Components
 import { HeaderWithSearch } from '@/app/dashboard/components'
