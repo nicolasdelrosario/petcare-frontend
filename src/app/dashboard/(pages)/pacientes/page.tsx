@@ -10,7 +10,7 @@ import useOwner from '@/hooks/useOwner'
 import { useViewModeStore } from '@/store/useViewModeStore'
 
 // Util
-import { filterOwners } from '@/util/filters'
+import { filterOwners } from '@/util/filters/owner-filter'
 
 // Components
 import { HeaderWithSearch } from '@/app/dashboard/components'
