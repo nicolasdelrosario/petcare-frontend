@@ -12,14 +12,14 @@ import {
 
 interface ActionButtonsProps {
 	isEditing: boolean
-	handleSave: () => void
+	handleUpdate: () => void
 	setIsEditing: (value: boolean) => void
 	handleDelete: () => void
 }
 
 const ActionButtons = ({
 	isEditing,
-	handleSave,
+	handleUpdate,
 	setIsEditing,
 	handleDelete,
 }: ActionButtonsProps) => (
@@ -29,7 +29,7 @@ const ActionButtons = ({
 				<Button variant='outline' onClick={() => setIsEditing(false)}>
 					Cancelar
 				</Button>
-				<Button onClick={handleSave}>Guardar</Button>
+				<Button onClick={handleUpdate}>Guardar</Button>
 			</>
 		) : (
 			<>
