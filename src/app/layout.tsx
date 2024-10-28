@@ -11,7 +11,7 @@ import './globals.css'
 import { cn } from '@/lib/utils'
 
 // Components
-import { Navbar, Footer } from '@/components'
+import { Navbar, Footer, Providers } from '@/components'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -28,13 +28,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang='es'>
 			<body className={cn('min-h-screen', poppins.className)}>
-				<header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
+				{/* <header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
 					<Navbar />
-				</header>
-				<main className='grainy-light flex min-h-[calc(100vh-3.5rem-1px)] flex-col'>
-					<div className='flex h-full flex-1 flex-col'>{children}</div>
-				</main>
-				<Footer />
+				</header> */}
+				<Providers>
+					<main className='grainy-light flex min-h-[calc(100vh-3.5rem-1px)] flex-col'>
+						<div className='flex h-full flex-1 flex-col'>{children}</div>
+					</main>
+				</Providers>
+				{/* <Footer /> */}
 			</body>
 		</html>
 	)
