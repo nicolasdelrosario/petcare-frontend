@@ -1,5 +1,8 @@
 'use client'
 
+// Next
+import { useRouter } from 'next/navigation'
+
 // React
 import { useState } from 'react'
 
@@ -27,11 +30,17 @@ interface OwnerDetailsProps {
 }
 
 export default function OwnerDetails({ owner }: OwnerDetailsProps) {
+	const router = useRouter()
+
 	const [isEditing, setIsEditing] = useState(false)
 	const [editedOwner, setEditedOwner] = useState<IOwner>(owner)
 
+	const PATIENTS = '/dashboard/pacientes'
+
 	const updateOwnerMutation = useUpdateOwner()
-	const deleteOwnerMutation = useDeleteOwner(owner.id)
+	const deleteOwnerMutation = useDeleteOwner(owner.id, () =>
+		router.push(PATIENTS)
+	)
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target
