@@ -4,7 +4,7 @@
 import { useState } from 'react'
 
 // Hooks
-import useAppointment from '@/hooks/useAppointment'
+import { useAppointments } from '@/hooks/appointments/useAppointments'
 import { useViewModeStore } from '@/store/useViewModeStore'
 
 // Util
@@ -17,11 +17,12 @@ import { AppointmentsGrid, AppointmentsTable } from './components'
 const TITLE_PAGE = 'Citas'
 
 export default function Appointments() {
-	const { appointments } = useAppointment()
+	const { data: appointments } = useAppointments()
 	const { viewMode } = useViewModeStore()
 	const [searchTerm, setSearchTerm] = useState('')
 
-	const filteredAppointments = filterAppointments(appointments, searchTerm)
+	const filteredAppointments =
+		appointments && filterAppointments(appointments, searchTerm)
 
 	return (
 		<div>
@@ -32,10 +33,10 @@ export default function Appointments() {
 				placeholder='Buscar Cita...'
 			/>
 
-			{viewMode === 'card' && (
+			{viewMode === 'card' && filteredAppointments && (
 				<AppointmentsGrid appointments={filteredAppointments} />
 			)}
-			{viewMode === 'table' && (
+			{viewMode === 'table' && filteredAppointments && (
 				<AppointmentsTable appointments={filteredAppointments} />
 			)}
 		</div>
