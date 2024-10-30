@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { getOwners } from '@/services/owner.service'
 
-const useOwner = () => {
+export const useOwners = () => {
 	return useQuery({
 		queryKey: ['owners'],
 		queryFn: getOwners,
@@ -9,5 +9,3 @@ const useOwner = () => {
 		refetchOnWindowFocus: true,
 	})
 }
-
-export default useOwner
