@@ -30,3 +30,9 @@ export const updateOwner = async (
 export const deleteOwner = async (id: number): Promise<void> => {
 	await API_BASE.patch(`${PATH_OWNER}/${id}`)
 }
+
+// Create Owner
+export const createOwner = async (changes: Partial<Owner>): Promise<Owner> => {
+	const { data } = await API_BASE.post(`${PATH_OWNER}`, changes)
+	return data
+}

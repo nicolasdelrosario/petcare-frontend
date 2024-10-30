@@ -11,14 +11,14 @@ export const getPets = async () => {
 }
 
 // Get Pet
-export const getPet = async (id: string) => {
+export const getPet = async (id: number) => {
 	const { data } = await API_BASE.get(`${PATH_PETS}/${id}`)
 	return data
 }
 
 // Update Pet
 export const updatePet = async (
-	id: string,
+	id: number,
 	changes: Partial<Pet>
 ): Promise<Pet> => {
 	const { data } = await API_BASE.put(`${PATH_PETS}/${id}`, changes)
@@ -26,6 +26,12 @@ export const updatePet = async (
 }
 
 // Delete Pet
-export const deletePet = async (id: string): Promise<void> => {
+export const deletePet = async (id: number): Promise<void> => {
 	await API_BASE.patch(`${PATH_PETS}/${id}`)
+}
+
+// Create Pet
+export const createPet = async (changes: Partial<Pet>): Promise<Pet> => {
+	const { data } = await API_BASE.post(`${PATH_PETS}`, changes)
+	return data
 }

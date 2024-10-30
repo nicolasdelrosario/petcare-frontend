@@ -30,3 +30,11 @@ export const updateAppointment = async (
 export const deleteAppointment = async (id: number): Promise<void> => {
 	await API_BASE.patch(`${PATH_APPOINTMENTS}/${id}`)
 }
+
+// Create an appointment
+export const createAppointment = async (
+	changes: Partial<Appointment>
+): Promise<Appointment> => {
+	const { data } = await API_BASE.post(`${PATH_APPOINTMENTS}`, changes)
+	return data
+}
