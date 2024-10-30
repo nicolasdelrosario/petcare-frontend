@@ -47,3 +47,12 @@ export {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from './dropdown-menu'
+
+// Select
+export {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from './react-select'
