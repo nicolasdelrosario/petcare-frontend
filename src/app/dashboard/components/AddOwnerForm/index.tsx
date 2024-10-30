@@ -33,38 +33,28 @@ export default function AddOwnerForm({ onSuccess }: AddOwnerFormProps) {
 		onSuccess()
 	}
 
+	const ownerFields = [
+		{ id: 'name', label: 'Nombre', type: 'text' },
+		{ id: 'dni', label: 'DNI', type: 'text', icon: <IdCard /> },
+		{ id: 'email', label: 'Email', type: 'email', icon: <Mail /> },
+		{ id: 'phone', label: 'Teléfono', type: 'tel', icon: <Phone /> },
+		{ id: 'address', label: 'Dirección', type: 'text', icon: <MapPin /> },
+	]
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className='grid grid-cols-2 gap-4'>
-				<AnimatedInput id='name' label='Nombre' onChange={handleChange} />
-				<AnimatedInput
-					id='dni'
-					label='DNI'
-					icon={<IdCard />}
-					onChange={handleChange}
-				/>
-				<AnimatedInput
-					id='email'
-					label='Email'
-					type='email'
-					icon={<Mail />}
-					onChange={handleChange}
-				/>
-				<AnimatedInput
-					id='phone'
-					label='Teléfono'
-					type='tel'
-					icon={<Phone />}
-					onChange={handleChange}
-				/>
+				{ownerFields.map(field => (
+					<AnimatedInput
+						key={field.id}
+						id={field.id}
+						label={field.label}
+						type={field.type}
+						icon={field.icon}
+						onChange={handleChange}
+					/>
+				))}
 			</div>
-			<AnimatedInput
-				id='address'
-				label='Dirección'
-				type='text'
-				icon={<MapPin />}
-				onChange={handleChange}
-			/>
 
 			<div className='mt-8 flex justify-end'>
 				<Button type='submit'>Agregar Propietario</Button>
