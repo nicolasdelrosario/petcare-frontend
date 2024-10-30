@@ -22,7 +22,7 @@ import {
 // Lucide Icons
 import { Plus } from 'lucide-react'
 
-export default function index() {
+export default function AddNewButton() {
 	const [dialogState, setDialogState] = useState({
 		owner: false,
 		pet: false,
@@ -45,7 +45,9 @@ export default function index() {
 		<Dialog open={isOpen} onOpenChange={onClose}>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>{title}</DialogTitle>
+					<DialogTitle className='border-b bg-background pb-2 text-lg font-semibold'>
+						{title}
+					</DialogTitle>
 				</DialogHeader>
 				{FormComponent}
 			</DialogContent>
@@ -87,7 +89,7 @@ export default function index() {
 				dialogState.appointment,
 				() => closeDialog('appointment'),
 				'Añadir Cita',
-				<AddAppointmentForm />
+				<AddAppointmentForm onSuccess={() => closeDialog('appointment')} />
 			)}
 
 			{/* Render Owner Dialog */}
@@ -95,7 +97,7 @@ export default function index() {
 				dialogState.owner,
 				() => closeDialog('owner'),
 				'Añadir Propietario',
-				<AddOwnerForm />
+				<AddOwnerForm onSuccess={() => closeDialog('owner')} />
 			)}
 
 			{/* Render Pet Dialog */}
@@ -103,7 +105,7 @@ export default function index() {
 				dialogState.pet,
 				() => closeDialog('pet'),
 				'Añadir Mascota',
-				<AddPetForm />
+				<AddPetForm onSuccess={() => closeDialog('pet')} />
 			)}
 		</>
 	)
