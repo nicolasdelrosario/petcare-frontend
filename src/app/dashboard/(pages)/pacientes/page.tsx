@@ -35,7 +35,7 @@ export default function Page() {
 			/>
 
 			{viewMode === 'card' && <OwnersGrid owners={filteredOwners} />}
-			{viewMode === 'table' && <OwnersTable owners={filteredOwners} />}
+			{viewMode === 'table' && <OwnersTable />}
 		</>
 	)
 }
