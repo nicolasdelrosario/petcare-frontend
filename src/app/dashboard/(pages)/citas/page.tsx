@@ -36,9 +36,7 @@ export default function Appointments() {
 			{viewMode === 'card' && filteredAppointments && (
 				<AppointmentsGrid appointments={filteredAppointments} />
 			)}
-			{viewMode === 'table' && filteredAppointments && (
-				<AppointmentsTable appointments={filteredAppointments} />
-			)}
+			{viewMode === 'table' && <AppointmentsTable />}
 		</div>
 	)
 }
