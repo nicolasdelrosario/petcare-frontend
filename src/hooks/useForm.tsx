@@ -5,6 +5,7 @@ type FormState<T> = {
 	handleChange: (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
 	) => void
+	updateField: (field: keyof T, value: T[keyof T]) => void
 	setFormData: React.Dispatch<React.SetStateAction<T>>
 }
 
@@ -21,5 +22,12 @@ export function useForm<T>(initialState: T): FormState<T> {
 		}))
 	}
 
-	return { formData, handleChange, setFormData }
+	const updateField = (field: keyof T, value: T[keyof T]) => {
+		setFormData(prev => ({
+			...prev,
+			[field]: value,
+		}))
+	}
+
+	return { formData, handleChange, updateField, setFormData }
 }
