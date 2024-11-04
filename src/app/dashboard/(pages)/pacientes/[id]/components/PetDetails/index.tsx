@@ -7,13 +7,13 @@ import { useState } from 'react'
 import { Pet as PetI } from '@/interfaces/Pet'
 
 // Hooks
-import { useUpdatePet } from '@/hooks/pets/useUpdatePet'
 import { useDeletePet } from '@/hooks/pets/useDeletePet'
-// import { useOwnerById } from '@/hooks/owners/useOwnerById'
 
 // Components
-import { ActionButtons } from '@/app/dashboard/components'
-import { Pet, PetEditableFields } from '../'
+import { Pet, PetUpdate, Delete } from '../'
+
+// Shadcn Components
+import { Button } from '@/components/shadcn'
 
 interface PetDetailsProps {
 	pet: PetI
@@ -21,54 +21,25 @@ interface PetDetailsProps {
 
 export default function PetDetails({ pet }: PetDetailsProps) {
 	const [isEditing, setIsEditing] = useState(false)
-	const [editedPet, setEditedPet] = useState<PetI>(pet)
 
-	const updatePetMutation = useUpdatePet()
 	const deletePetMutation = useDeletePet(pet.id)
-	// const { refetch } = useOwnerById(pet.owner.id)
-
-	const toggleEditing = () => setIsEditing(prev => !prev)
-
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		setEditedPet(prev => ({
-			...prev,
-			[name]: value,
-		}))
-	}
-
-	const handleUpdate = () => {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { id, createdAt, updatedAt, deletedAt, ...changes } = editedPet
-
-		updatePetMutation.mutate({
-			id: pet.id,
-			changes,
-		})
-
-		// refetch()
-		toggleEditing()
-	}
-
 	const handleDelete = () => deletePetMutation.mutate()
 
 	return (
 		<div className='pt-2'>
 			{isEditing ? (
-				<PetEditableFields
-					pet={editedPet}
-					handleInputChange={handleInputChange}
-				/>
+				<PetUpdate pet={pet} setIsEditing={setIsEditing} />
 			) : (
-				<Pet pet={editedPet} />
+				<>
+					<Pet pet={pet} />
+					<div className='flex flex-col-reverse pt-6 sm:flex-row sm:justify-end sm:space-x-2'>
+						<Button variant='outline' onClick={() => setIsEditing(true)}>
+							Editar
+						</Button>
+						<Delete onConfirm={handleDelete} />
+					</div>
+				</>
 			)}
-
-			<ActionButtons
-				isEditing={isEditing}
-				handleUpdate={handleUpdate}
-				setIsEditing={toggleEditing}
-				handleDelete={handleDelete}
-			/>
 		</div>
 	)
 }
