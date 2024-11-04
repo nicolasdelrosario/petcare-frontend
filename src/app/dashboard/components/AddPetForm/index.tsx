@@ -27,15 +27,15 @@ export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 	const {
 		formData: petData,
 		handleChange,
-		setFormData,
+		updateField,
 	} = useForm<PetFormData>({} as PetFormData)
 
 	const handleSelectOwner = (ownerId: string) => {
-		setFormData(prev => ({ ...prev, ownerId: Number(ownerId) }))
+		updateField('ownerId', Number(ownerId))
 	}
 
 	const handleSelectGender = (gender: string) => {
-		setFormData(prev => ({ ...prev, gender: gender === 'true' }))
+		updateField('gender', gender === 'true')
 	}
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
