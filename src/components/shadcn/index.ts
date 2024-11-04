@@ -56,3 +56,9 @@ export {
 	SelectTrigger,
 	SelectValue,
 } from './react-select'
+
+// Progress
+export { Progress } from './progress'
+
+// Skeleton
+export { Skeleton } from './skeleton'
