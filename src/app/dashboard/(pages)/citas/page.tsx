@@ -13,16 +13,19 @@ import { filterAppointments } from '@/util/filters/appointmet-filter'
 // Components
 import { HeaderWithSearch } from '@/app/dashboard/components'
 import { AppointmentsGrid, AppointmentsTable } from './components'
+import { Loading } from '@/components'
 
 const TITLE_PAGE = 'Citas'
 
 export default function Appointments() {
-	const { data: appointments } = useAppointments()
+	const { data: appointments, isLoading } = useAppointments()
 	const { viewMode } = useViewModeStore()
 	const [searchTerm, setSearchTerm] = useState('')
 
 	const filteredAppointments =
 		appointments && filterAppointments(appointments, searchTerm)
+
+	if (isLoading) return <Loading />
 
 	return (
 		<div>
