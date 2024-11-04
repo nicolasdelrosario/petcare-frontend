@@ -4,7 +4,7 @@
 import { useOwnerById } from '@/hooks/owners/useOwnerById'
 
 // Components
-import { MaxWidthWrapper } from '@/components'
+import { MaxWidthWrapper, Loading } from '@/components'
 import { Header } from '@/app/dashboard/components'
 import { OwnerDetails, PetGrid } from './components'
 
@@ -17,9 +17,7 @@ interface Props {
 export default function Page({ params }: Props) {
 	const { data: owner, error, isLoading } = useOwnerById(parseInt(params.id))
 
-	if (isLoading) {
-		return <div>loading</div>
-	}
+	if (isLoading) return <Loading />
 
 	if (error || !owner) {
 		return <div></div>
