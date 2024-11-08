@@ -4,6 +4,7 @@
 import { useForm } from '@/hooks/useForm'
 import { useOwners } from '@/hooks/owners/useOwners'
 import { useCreatePet } from '@/hooks/pets/useCreatePet'
+import { useState } from 'react'
 
 // Interfaces
 import { Pet } from '@/interfaces/Pet'
@@ -14,6 +15,12 @@ import { AnimatedInput, AnimatedSelect } from '@/components'
 // Shadcn Components
 import { Button } from '@/components/shadcn'
 
+//Schemas
+import { addPetSchema } from '../../(pages)/pacientes/[id]/components/PetSchema/addPetSchema'
+
+//Zod
+import { z } from 'zod'
+
 interface AddPetFormProps {
 	onSuccess: () => void
 }
@@ -23,6 +30,7 @@ type PetFormData = Partial<Pet> & { ownerId?: number }
 export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 	const { data: owners } = useOwners()
 	const createPet = useCreatePet()
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const {
 		formData: petData,
@@ -38,17 +46,11 @@ export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 		updateField('gender', gender === 'true')
 	}
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		createPet.mutate(petData)
-		onSuccess()
-	}
-
 	const petFields = [
 		{ id: 'name', label: 'Nombre', type: 'text' },
 		{ id: 'specie', label: 'Especie', type: 'text' },
 		{ id: 'type', label: 'Raza', type: 'text' },
-		{ id: 'age', label: 'Age', type: 'text' },
+		{ id: 'age', label: 'Edad', type: 'text' },
 		{ id: 'weight', label: 'Peso', type: 'text' },
 		{ id: 'color', label: 'Color', type: 'text' },
 	]
@@ -73,6 +75,27 @@ export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 		},
 	]
 
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		try {
+			addPetSchema.parse(petData)
+			setErrors({})
+
+			createPet.mutate(petData)
+			onSuccess()
+		} catch (error) {
+			if (error instanceof z.ZodError) {
+				const newErrors: { [key: string]: string } = {}
+				error.errors.forEach(err => {
+					if (err.path[0]) {
+						newErrors[err.path[0] as string] = err.message
+					}
+				})
+				setErrors(newErrors)
+			}
+		}
+	}
+
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className='grid grid-cols-2 gap-4'>
@@ -93,6 +116,7 @@ export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 						label={field.label}
 						type={field.type}
 						onChange={handleChange}
+						error={errors[field.id] || ''}
 					/>
 				))}
 			</div>
