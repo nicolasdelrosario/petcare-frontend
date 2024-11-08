@@ -1,5 +1,5 @@
 // Interfaces
-import { Pet as PetI } from '@/interfaces/Pet'
+import { Pet, Pet as PetI } from '@/interfaces/Pet'
 
 // Hooks
 import { useUpdatePet } from '@/hooks/pets/useUpdatePet'
@@ -10,6 +10,11 @@ import { AnimatedInput } from '@/components'
 
 // Shadcn Components
 import { Button } from '@/components/shadcn'
+import { useState } from 'react'
+import { updatePetSchema } from '../PetSchema/updatePetSchema'
+
+//Zod
+import { z } from 'zod'
 
 interface PetEditableFieldsProps {
 	pet: PetI
@@ -23,18 +28,40 @@ export default function PetEditableFields({
 	const updatePetMutation = useUpdatePet()
 	const { weight, color, characteristics } = pet
 	const { formData: editedPet, handleChange } = useForm<PetI>(pet)
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		setIsEditing(false)
+		try {
+			const updatePet = {
+				color: editedPet.color,
+				weight: editedPet.weight,
+				characteristics: editedPet.characteristics,
+			}
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { id, createdAt, updatedAt, deletedAt, ...changes } = editedPet
+			const validateData = updatePetSchema.parse(updatePet)
+			setErrors({})
 
-		updatePetMutation.mutate({
-			id: pet.id,
-			changes,
-		})
+			updatePetMutation.mutate({
+				id: pet.id,
+				changes: validateData as Omit<
+					Pet,
+					'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+				>,
+			})
+
+			setIsEditing(false)
+		} catch (error) {
+			if (error instanceof z.ZodError) {
+				const newErrors: { [key: string]: string } = {}
+				error.errors.forEach(err => {
+					if (err.path[0]) {
+						newErrors[err.path[0] as string] = err.message
+					}
+				})
+				setErrors(newErrors)
+			}
+		}
 	}
 
 	return (
@@ -45,6 +72,7 @@ export default function PetEditableFields({
 					label='Color'
 					defaultValue={color || ''}
 					onChange={handleChange}
+					error={errors.color}
 				/>
 
 				<AnimatedInput
@@ -52,6 +80,7 @@ export default function PetEditableFields({
 					label='Peso'
 					defaultValue={weight || ''}
 					onChange={handleChange}
+					error={errors.weight}
 				/>
 			</div>
 			<AnimatedInput
@@ -59,6 +88,7 @@ export default function PetEditableFields({
 				label='Caracteristicas'
 				defaultValue={characteristics || ''}
 				onChange={handleChange}
+				error={errors.characteristics}
 			/>
 
 			<div className='flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2'>
