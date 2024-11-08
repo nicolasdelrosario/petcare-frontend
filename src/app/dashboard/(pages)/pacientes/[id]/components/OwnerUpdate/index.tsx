@@ -1,9 +1,10 @@
-// Interfaces
+//Interface
 import { Owner } from '@/interfaces/Owner'
 
 // Hooks
 import { useUpdateOwner } from '@/hooks/owners/useUpdateOwner'
 import { useForm } from '@/hooks/useForm'
+import { useState } from 'react'
 
 // Components
 import { AnimatedInput } from '@/components'
@@ -22,6 +23,12 @@ import {
 // Icons From Lucide React
 import { UserPen } from 'lucide-react'
 
+//Schemas
+import { updateOwnerSchema } from '../OwnerSchema/updateOwnerSchema'
+
+//Zod
+import { z } from 'zod'
+
 interface OwnerEditProps {
 	owner: Owner
 	isEditing: boolean
@@ -36,19 +43,38 @@ export default function OwnerEdit({
 	const updateOwnerMutation = useUpdateOwner()
 	const { email, phone, address } = owner
 	const { formData: editedOwner, handleChange } = useForm<Owner>(owner)
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		setIsEditing(false)
+		try {
+			const updatedOwner = {
+				email: editedOwner.email,
+				phone: editedOwner.phone,
+				address: editedOwner.address,
+			}
+			const validateData = updateOwnerSchema.parse(updatedOwner)
+			setErrors({})
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { id, createdAt, updatedAt, deletedAt, pets, ...changes } =
-			editedOwner
-
-		updateOwnerMutation.mutate({
-			id: owner.id,
-			changes,
-		})
+			updateOwnerMutation.mutate({
+				id: owner.id,
+				changes: validateData as Omit<
+					Owner,
+					'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+				>,
+			})
+			setIsEditing(false)
+		} catch (error) {
+			if (error instanceof z.ZodError) {
+				const newErrors: { [key: string]: string } = {}
+				error.errors.forEach(err => {
+					if (err.path[0]) {
+						newErrors[err.path[0] as string] = err.message
+					}
+				})
+				setErrors(newErrors)
+			}
+		}
 	}
 
 	return (
@@ -77,18 +103,22 @@ export default function OwnerEdit({
 						label='Correo Electrónico'
 						defaultValue={email || ''}
 						onChange={handleChange}
+						error={errors.email}
 					/>
+
 					<AnimatedInput
 						id='phone'
 						label='Teléfono'
 						defaultValue={phone || ''}
 						onChange={handleChange}
+						error={errors.phone}
 					/>
 					<AnimatedInput
 						id='address'
 						label='Dirección'
 						defaultValue={address || ''}
 						onChange={handleChange}
+						error={errors.address}
 					/>
 
 					<DialogFooter>
