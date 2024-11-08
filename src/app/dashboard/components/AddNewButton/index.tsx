@@ -4,7 +4,7 @@
 import { useState } from 'react'
 
 // Components
-import { AddAppointmentForm, AddOwnerForm, AddPetForm } from '..'
+import { AddOwnerForm, AddPetForm } from '..'
 
 // Shadcn Components
 import {
@@ -85,12 +85,6 @@ export default function AddNewButton() {
 			</div>
 
 			{/* Render Appointment Dialog */}
-			{renderDialog(
-				dialogState.appointment,
-				() => closeDialog('appointment'),
-				'Añadir Cita',
-				<AddAppointmentForm onSuccess={() => closeDialog('appointment')} />
-			)}
 
 			{/* Render Owner Dialog */}
 			{renderDialog(

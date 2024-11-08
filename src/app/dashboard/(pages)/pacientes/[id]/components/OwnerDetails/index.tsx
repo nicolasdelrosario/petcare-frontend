@@ -26,6 +26,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/shadcn'
+import { ownerSchema } from '../OwnerSchema/ownerSchema'
 
 interface OwnerDetailsProps {
 	owner: IOwner
