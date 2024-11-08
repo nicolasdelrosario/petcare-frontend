@@ -13,6 +13,7 @@ interface AnimatedInputProps {
 	placeholder?: string
 	icon?: React.ReactNode
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+	error?: string
 }
 
 export default function AnimatedLabelInput({
@@ -24,6 +25,7 @@ export default function AnimatedLabelInput({
 	placeholder = '',
 	icon,
 	onChange,
+	error,
 }: AnimatedInputProps) {
 	return (
 		<div className='group relative my-4'>
@@ -50,6 +52,9 @@ export default function AnimatedLabelInput({
 						{icon}
 					</div>
 				)}
+			</div>
+			<div className='absolute leading-none'>
+				{error && <span className='text-xxs italic text-red-500'>{error}</span>}
 			</div>
 		</div>
 	)
