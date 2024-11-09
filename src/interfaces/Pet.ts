@@ -4,11 +4,11 @@ import { Appointment } from './Appointment'
 export interface Pet {
 	id: number
 	name: string
-	specie?: string
-	type?: string // raza
-	gender?: boolean
+	species?: string
+	breed?: string
+	sex?: boolean
 	weight?: string
-	age?: string
+	birthDate?: Date
 	color?: string
 	characteristics?: string
 	isAlive: boolean
