@@ -60,7 +60,9 @@ export default function AnimatedInput({
 				)}
 			</div>
 			<div className='absolute leading-none'>
-				{error && <span className='text-xxs italic text-red-500'>{error}</span>}
+				{error && (
+					<span className='pl-3 text-[.80rem] text-red-400'>{error}</span>
+				)}
 			</div>
 		</div>
 	)
