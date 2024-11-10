@@ -8,6 +8,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 	AlertDialogTrigger,
+	AlertDialogDescription,
 } from '@/components/shadcn'
 
 interface DeleteProps {
@@ -30,6 +31,10 @@ export default function Delete({ onConfirm, btnStyle, icon }: DeleteProps) {
 					<AlertDialogTitle className='border-b bg-background pb-2 text-lg font-semibold'>
 						Estás seguro?
 					</AlertDialogTitle>
+					<AlertDialogDescription className='sr-only'>
+						Esta acción no se puede deshacer. Esto eliminará permanentemente el
+						elemento.
+					</AlertDialogDescription>
 				</AlertDialogHeader>
 				<AlertDialogFooter className='pt-2'>
 					<AlertDialogCancel>Cancelar</AlertDialogCancel>
