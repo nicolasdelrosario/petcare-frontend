@@ -27,6 +27,7 @@ export const useCreateAppointment = () => {
 
 		onError: () => {
 			toast({
+				variant: 'destructive',
 				title: 'Error',
 				description: 'Ocurrio un error al crear la cita.',
 			})
