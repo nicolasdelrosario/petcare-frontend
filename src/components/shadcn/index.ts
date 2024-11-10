@@ -25,6 +25,7 @@ export {
 	DialogTitle,
 	DialogTrigger,
 	DialogFooter,
+	DialogDescription,
 } from './dialog'
 
 // Alert Dialog
