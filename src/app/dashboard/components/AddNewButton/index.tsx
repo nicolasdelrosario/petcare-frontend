@@ -21,6 +21,7 @@ import {
 
 // Lucide Icons
 import { Plus } from 'lucide-react'
+import { DialogDescription } from '@radix-ui/react-dialog'
 
 export default function AddNewButton() {
 	const [dialogState, setDialogState] = useState({
@@ -43,15 +44,15 @@ export default function AddNewButton() {
 		FormComponent: JSX.Element
 	) => (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent aria-describedby='dialog-description'>
+			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className='border-b bg-background pb-2 text-lg font-semibold'>
 						{title}
 					</DialogTitle>
 				</DialogHeader>
-				<p id='dialog-description' className='sr-only'>
-					{title + ' Formulario'}
-				</p>
+				<DialogDescription className='sr-only'>
+					{title} Formulario
+				</DialogDescription>
 				{FormComponent}
 			</DialogContent>
 		</Dialog>
