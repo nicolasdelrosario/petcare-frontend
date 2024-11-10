@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Interfaces
 import { Appointment } from '@/interfaces/Appointment'
 
@@ -11,9 +12,6 @@ import { AnimatedInput } from '@/components'
 // Shadcn Components
 import { Button } from '@/components/shadcn'
 
-// Format Date
-import { format, parseISO, setHours, setMinutes } from 'date-fns'
-
 interface AppointmentUpdateProps {
 	appointment: Appointment
 	setIsEditing: (isEditing: boolean) => void
@@ -23,37 +21,31 @@ export default function AppointmentUpdate({
 	appointment,
 	setIsEditing,
 }: AppointmentUpdateProps) {
-	const { formData: editedAppointment, handleChange } = useForm({
-		reason: appointment.reason,
-		date: format(new Date(appointment.date), 'yyyy-MM-dd'),
-		time: format(new Date(appointment.date), 'HH:mm'),
-	})
-
+	const { date, time, reason } = appointment
+	const { formData: editedAppointment, handleChange } = useForm(appointment)
 	const updateAppointmentMutation = useUpdateAppointment()
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		const [hours, minutes] = editedAppointment.time.split(':').map(Number)
-		const combinedDateTime = setMinutes(
-			setHours(parseISO(editedAppointment.date), hours),
-			minutes
-		)
-
-		const updatedData = {
-			reason: editedAppointment.reason,
-			date: combinedDateTime,
-		}
+		const {
+			id,
+			createdAt,
+			updatedAt,
+			deletedAt,
+			user,
+			pet,
+			dateTime,
+			...changes
+		} = editedAppointment
 
 		updateAppointmentMutation.mutate({
 			id: appointment.id,
-			changes: updatedData,
+			changes,
 		})
 
 		setIsEditing(false)
 	}
-
-	const { date, time, reason } = editedAppointment
 
 	return (
 		<form onSubmit={handleUpdate} className='flex flex-col gap-4'>
@@ -61,6 +53,7 @@ export default function AppointmentUpdate({
 				id='date'
 				type='date'
 				label='Fecha'
+				// @ts-expect-error: The defaultValue may not match the expected string type
 				defaultValue={date}
 				onChange={handleChange}
 			/>
