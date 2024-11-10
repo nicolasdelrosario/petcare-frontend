@@ -42,29 +42,29 @@ export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 		updateField('ownerId', Number(ownerId))
 	}
 
-	const handleSelectGender = (gender: string) => {
-		updateField('gender', gender === 'true')
+	const handleSelectSex = (sex: string) => {
+		updateField('sex', sex === 'true')
 	}
 
 	const petFields = [
 		{ id: 'name', label: 'Nombre', type: 'text' },
-		{ id: 'specie', label: 'Especie', type: 'text' },
-		{ id: 'type', label: 'Raza', type: 'text' },
-		{ id: 'age', label: 'Edad', type: 'text' },
+		{ id: 'species', label: 'Especie', type: 'text' },
+		{ id: 'breed', label: 'Raza', type: 'text' },
+		{ id: 'birthDate', label: 'Fecha de Nacimiento', type: 'date' },
 		{ id: 'weight', label: 'Peso', type: 'text' },
 		{ id: 'color', label: 'Color', type: 'text' },
 	]
 
 	const petSelectFields = [
 		{
-			id: 'gender',
-			label: 'Género',
-			value: petData.gender?.toString(),
+			id: 'sex',
+			label: 'Sexo',
+			value: petData.sex?.toString(),
 			options: [
 				{ id: 'true', name: 'Macho' },
 				{ id: 'false', name: 'Hembra' },
 			],
-			onChange: handleSelectGender,
+			onChange: handleSelectSex,
 		},
 		{
 			id: 'owner',
