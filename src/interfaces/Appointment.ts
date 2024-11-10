@@ -3,7 +3,8 @@ import { User } from './User'
 
 export interface Appointment {
 	id: number
-	date: Date | string
+	date: Date
+	time: string
 	status: boolean
 	reason?: string
 	pet: Pet
@@ -11,4 +12,5 @@ export interface Appointment {
 	createdAt: Date
 	updatedAt: Date
 	deletedAt?: Date
+	dateTime: string | Date | number
 }
