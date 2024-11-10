@@ -12,5 +12,5 @@ export interface Appointment {
 	createdAt: Date
 	updatedAt: Date
 	deletedAt?: Date
-	dateTime: string | Date | number
+	dateTime?: string | number | Date
 }
