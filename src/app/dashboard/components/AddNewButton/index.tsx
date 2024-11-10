@@ -4,7 +4,7 @@
 import { useState } from 'react'
 
 // Components
-import { AddOwnerForm, AddPetForm } from '..'
+import { AddOwnerForm, AddPetForm, AddAppointmentForm } from '..'
 
 // Shadcn Components
 import {
@@ -43,12 +43,15 @@ export default function AddNewButton() {
 		FormComponent: JSX.Element
 	) => (
 		<Dialog open={isOpen} onOpenChange={onClose}>
-			<DialogContent>
+			<DialogContent aria-describedby='dialog-description'>
 				<DialogHeader>
 					<DialogTitle className='border-b bg-background pb-2 text-lg font-semibold'>
 						{title}
 					</DialogTitle>
 				</DialogHeader>
+				<p id='dialog-description' className='sr-only'>
+					{title + ' Formulario'}
+				</p>
 				{FormComponent}
 			</DialogContent>
 		</Dialog>
@@ -85,6 +88,12 @@ export default function AddNewButton() {
 			</div>
 
 			{/* Render Appointment Dialog */}
+			{renderDialog(
+				dialogState.appointment,
+				() => closeDialog('appointment'),
+				'Añadir Cita',
+				<AddAppointmentForm onSuccess={() => closeDialog('appointment')} />
+			)}
 
 			{/* Render Owner Dialog */}
 			{renderDialog(
