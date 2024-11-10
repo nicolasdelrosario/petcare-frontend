@@ -2,10 +2,10 @@
 import { Appointment as IAppointment } from '@/interfaces/Appointment'
 
 // Format Date
-import { format } from 'date-fns'
+import { formatDate } from 'date-fns'
 
 // Lucide Icons
-import { Calendar, Clock, PawPrint, User, NotepadText } from 'lucide-react'
+import { Calendar, PawPrint, User, NotepadText, Clock } from 'lucide-react'
 
 interface AppointmentProps {
 	appointment: IAppointment
@@ -15,7 +15,7 @@ export default function Appointment({ appointment }: AppointmentProps) {
 	const {
 		updatedAt,
 		pet: { name: petName, owner: { name: ownerName } = {} } = {},
-		date,
+		dateTime,
 		reason,
 	} = appointment
 
@@ -30,11 +30,11 @@ export default function Appointment({ appointment }: AppointmentProps) {
 		},
 		{
 			icon: Calendar,
-			label: format(new Date(date), 'dd MMMM yyyy'),
+			label: dateTime && formatDate(dateTime, 'dd MMM yyyy'),
 		},
 		{
 			icon: Clock,
-			label: format(new Date(date), 'HH:mm'),
+			label: dateTime && formatDate(dateTime, 'HH:mm'),
 		},
 		{
 			icon: NotepadText,
@@ -53,7 +53,7 @@ export default function Appointment({ appointment }: AppointmentProps) {
 				))}
 			</div>
 			<div className='flex items-center pt-2 text-sm text-muted-foreground'>
-				Última actualización: {format(new Date(updatedAt), 'dd MMM yyyy HH:mm')}
+				Última actualización: {formatDate(updatedAt, 'dd MMM yyyy HH:mm')}
 			</div>
 		</div>
 	)
