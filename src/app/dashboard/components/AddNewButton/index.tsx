@@ -17,11 +17,11 @@ import {
 	DialogContent,
 	DialogHeader,
 	DialogTitle,
+	DialogDescription,
 } from '@/components/shadcn'
 
 // Lucide Icons
 import { Plus } from 'lucide-react'
-import { DialogDescription } from '@radix-ui/react-dialog'
 
 export default function AddNewButton() {
 	const [dialogState, setDialogState] = useState({
