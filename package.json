@@ -2,6 +2,7 @@
 	"name": "petcare-frontend",
 	"version": "0.1.0",
 	"private": true,
+	"author": "Nicolas Del Rosario <contact@nicolasdelrosario.com>",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
