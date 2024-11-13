@@ -23,8 +23,8 @@ export default function Pet({ pet }: PetProps) {
 	const {
 		id,
 		name,
-		specie,
-		gender,
+		species,
+		sex,
 		weight,
 		age,
 		color,
@@ -36,11 +36,11 @@ export default function Pet({ pet }: PetProps) {
 		{ icon: PawPrint, label: name },
 		{
 			icon: Cat,
-			label: specie || 'Especie no especificada.',
+			label: species || 'Especie no especificada.',
 		},
 		{
 			icon: Squirrel,
-			label: gender ? 'Macho' : 'Hembra',
+			label: sex ? 'Macho' : 'Hembra',
 		},
 		{
 			icon: Weight,
@@ -48,7 +48,7 @@ export default function Pet({ pet }: PetProps) {
 		},
 		{
 			icon: Hourglass,
-			label: age ? `${age} años` : 'Edad no especificada.',
+			label: age ? `${age}` : 'Edad no especificada.',
 		},
 		{
 			icon: Rainbow,
