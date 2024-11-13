@@ -2,6 +2,10 @@
 
 // Next
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+
+// Auth
+import { signIn } from 'next-auth/react'
 
 // Hooks
 import { useForm } from '@/hooks/useForm'
@@ -19,10 +23,25 @@ import { Button, buttonVariants } from '@/components/shadcn/button'
 import { Mail, Lock } from 'lucide-react'
 
 export default function Login() {
-	const { handleChange } = useForm<Partial<User>>({} as Partial<User>)
+	const router = useRouter()
+	const { formData: userData, handleChange } = useForm<Partial<User>>(
+		{} as Partial<User>
+	)
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+
+		const responseNextAuth = await signIn('credentials', {
+			email: userData.email,
+			password: userData.password,
+			redirect: false,
+		})
+
+		if (responseNextAuth?.error) {
+			return
+		}
+
+		router.push('/dashboard/home')
 	}
 
 	return (
