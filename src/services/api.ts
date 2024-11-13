@@ -1,11 +1,14 @@
+// Axios
 import axios from 'axios'
+
+// Env
 import { env } from '@/config/env'
 
 /**
  * Instancia de axios con la url base del dominio
  */
 const API_BASE = axios.create({
-	baseURL: env.API_BASE_URL || 'http://localhost:3000/api/v1',
+	baseURL: env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api/v1',
 	headers: {
 		'Content-Type': 'application/json',
 	},
