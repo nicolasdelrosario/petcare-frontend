@@ -26,7 +26,7 @@ export default function PetGrid({ pets }: PetGridProps) {
 			<h2 className='mb-4 text-lg font-semibold'>Mascotas</h2>
 			<div className='grid grid-cols-1 gap-4 xl:grid-cols-2'>
 				{pets?.map(pet => {
-					const { id, name, specie, gender, weight } = pet
+					const { id, name, species, sex, weight } = pet
 
 					return (
 						<Card key={id}>
@@ -38,11 +38,11 @@ export default function PetGrid({ pets }: PetGridProps) {
 							<CardContent className='space-y-2 p-4'>
 								<div className='flex items-center text-sm text-muted-foreground'>
 									<Cat className='mr-2 h-4 w-4' />
-									{specie || 'Especie no especificada.'}
+									{species || 'Especie no especificada.'}
 								</div>
 								<div className='flex items-center text-sm text-muted-foreground'>
 									<Squirrel className='mr-2 h-4 w-4' />
-									{gender ? 'Macho' : 'Hembra'}
+									{sex ? 'Macho' : 'Hembra'}
 								</div>
 								<div className='flex items-center text-sm text-muted-foreground'>
 									<Weight className='mr-2 h-4 w-4' />
