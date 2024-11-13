@@ -6,6 +6,7 @@ export interface Pet {
 	name: string
 	species?: string
 	breed?: string
+	age?: string
 	sex?: boolean
 	weight?: string
 	birthDate?: Date
