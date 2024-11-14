@@ -7,11 +7,14 @@ import { env } from '@/config/env'
 /**
  * Instancia de axios con la url base del dominio
  */
-const API_BASE = axios.create({
-	baseURL: env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api/v1',
-	headers: {
-		'Content-Type': 'application/json',
-	},
-})
+export const createApiInstance = (token?: string) => {
+	const instance = axios.create({
+		baseURL: env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000/api/v1',
+		headers: {
+			'Content-Type': 'application/json',
+			...(token && { Authorization: `Bearer ${token}` }),
+		},
+	})
 
-export default API_BASE
+	return instance
+}
