@@ -14,6 +14,7 @@ import { buttonVariants, Button } from '../shadcn/button'
 
 // Icons
 import { ArrowRightIcon } from '@radix-ui/react-icons'
+import { Sparkles, DoorOpen, DoorClosed } from 'lucide-react'
 
 export default function Navbar() {
 	const { data: session } = useSession()
@@ -35,6 +36,7 @@ export default function Navbar() {
 								})}
 							>
 								Dashboard
+								<Sparkles className='ml-1.5 h-5 w-5 text-yellow-300' />
 							</Link>
 
 							<div className='hidden h-8 w-px bg-zinc-200 sm:block' />
@@ -44,6 +46,7 @@ export default function Navbar() {
 								className='text-xs sm:text-sm'
 								onClick={() => signOut()}
 							>
+								<DoorOpen className='mr-1.5 size-5' />
 								Logout
 							</Button>
 						</>
@@ -57,7 +60,7 @@ export default function Navbar() {
 								})}
 							>
 								Registrar
-								<ArrowRightIcon className='ml-1.5 h-5 w-5' />
+								<ArrowRightIcon className='ml-1.5 size-5' />
 							</Link>
 
 							<div className='hidden h-8 w-px bg-zinc-200 sm:block' />
@@ -70,6 +73,7 @@ export default function Navbar() {
 									className: 'text-xs sm:text-sm',
 								})}
 							>
+								<DoorClosed className='mr-1.5 size-5' />
 								Login
 							</Link>
 						</>
