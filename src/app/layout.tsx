@@ -1,5 +1,7 @@
-// Metadata
-import constructMetadata from '@/util/constructMetadata'
+'use client'
+
+// Next
+import { usePathname } from 'next/navigation'
 
 // Font Family
 import { Poppins } from 'next/font/google'
@@ -18,25 +20,31 @@ const poppins = Poppins({
 	weight: ['400', '500', '600', '700'],
 })
 
-export const metadata = constructMetadata()
-
 interface RootLayoutProps {
 	children: React.ReactNode
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
+	const pathname = usePathname()
+
+	const isHomePage = pathname === '/'
+
 	return (
 		<html lang='es'>
 			<body className={cn('min-h-screen', poppins.className)}>
-				{/* <header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
-					<Navbar />
-				</header> */}
 				<Providers>
+					{isHomePage && (
+						<header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
+							<Navbar />
+						</header>
+					)}
+
 					<main className='grainy-light flex min-h-[calc(100vh-3.5rem-1px)] flex-col'>
 						<div className='flex h-full flex-1 flex-col'>{children}</div>
 					</main>
+
+					{isHomePage && <Footer />}
 				</Providers>
-				{/* <Footer /> */}
 			</body>
 		</html>
 	)
