@@ -1,21 +1,26 @@
+// Tankstack Query
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
 // Services
-import { createOwner } from '@/services/owner.service'
+import { ownerService } from '@/services/owner.service'
 
 // Interfaces
 import { Owner } from '@/interfaces/Owner'
 
 // Hooks
 import { useToast } from '@/hooks/useToast'
-
-// Tankstack Query
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useToken } from '@/services/auth'
 
 export const useCreateOwner = () => {
 	const queryClient = useQueryClient()
+	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
-		mutationFn: (changes: Partial<Owner>) => createOwner(changes),
+		mutationFn: (changes: Partial<Owner>) => {
+			if (!token) throw new Error('No token found')
+			return ownerService.createOwner(changes, token)
+		},
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['owners'] })
