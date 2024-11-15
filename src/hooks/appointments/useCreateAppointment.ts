@@ -1,21 +1,26 @@
+// Tankstack Query
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
 // Services
-import { createAppointment } from '@/services/appointment.service'
+import { appointmentService } from '@/services/appointment.service'
 
 // Interfaces
 import { Appointment } from '@/interfaces/Appointment'
 
 // Hooks
 import { useToast } from '@/hooks/useToast'
-
-// Tankstack Query
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useToken } from '@/services/auth'
 
 export const useCreateAppointment = () => {
 	const queryClient = useQueryClient()
+	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
-		mutationFn: (changes: Partial<Appointment>) => createAppointment(changes),
+		mutationFn: (changes: Partial<Appointment>) => {
+			if (!token) throw new Error('No token found')
+			return appointmentService.createAppointment(changes, token)
+		},
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['appointments'] })
@@ -29,7 +34,7 @@ export const useCreateAppointment = () => {
 			toast({
 				variant: 'destructive',
 				title: 'Error',
-				description: 'Ocurrio un error al crear la cita.',
+				description: 'Ocurrió un error al crear la cita.',
 			})
 		},
 	})
