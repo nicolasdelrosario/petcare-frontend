@@ -1,21 +1,26 @@
+// Tankstack Query
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+
 // Services
-import { createPet } from '@/services/pet.service'
+import { petService } from '@/services/pet.service'
 
 // Interfaces
 import { Pet } from '@/interfaces/Pet'
 
 // Hooks
 import { useToast } from '@/hooks/useToast'
-
-// Tankstack Query
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useToken } from '@/services/auth'
 
 export const useCreatePet = () => {
 	const queryClient = useQueryClient()
+	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
-		mutationFn: (changes: Partial<Pet>) => createPet(changes),
+		mutationFn: (changes: Partial<Pet>) => {
+			if (!token) throw new Error('No token found')
+			return petService.createPet(changes, token)
+		},
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['pets'] })
