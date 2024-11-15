@@ -3,21 +3,18 @@
 // React
 import { useState } from 'react'
 
-// Zustand
-import { useAppointmentStore } from '@/store/useAppointmentStore'
-
 // Hooks
-import { useToast } from '@/hooks/useToast'
+import { useDeleteAppointment } from '@/hooks/appointments/useDeleteAppointment'
 
 // Interfaces
 import { Appointment as AppointmentI } from '@/interfaces/Appointment'
 
-// Format Date
-import { format, parseISO, setHours, setMinutes } from 'date-fns'
-
 // Components
-import { AppointmentEditableFields, Appointment } from '../index'
-import { ActionButtons } from '@/app/dashboard/components'
+import { AppointmentUpdate, Appointment } from '../index'
+import { Delete } from '@/app/dashboard/components'
+
+// Shadcn Components
+import { Button } from '@/components/shadcn'
 
 interface AppointmentDetailsProps {
 	appointment: AppointmentI
@@ -26,79 +23,30 @@ interface AppointmentDetailsProps {
 export default function AppointmentDetails({
 	appointment,
 }: AppointmentDetailsProps) {
-	const { toast } = useToast()
-	const { updateAppointment, removeAppointment } = useAppointmentStore()
 	const [isEditing, setIsEditing] = useState(false)
-	const [time, setTime] = useState(format(new Date(appointment.date), 'HH:mm'))
-	const [editedAppointment, setEditedAppointment] = useState({
-		reason: appointment.reason,
-		date: format(new Date(appointment.date), 'yyyy-MM-dd'),
-	})
 
-	const updateEditedAppointment = (name: string, value: string) => {
-		if (name === 'time') {
-			setTime(value)
-		} else {
-			setEditedAppointment(prev => ({ ...prev, [name]: value }))
-		}
-	}
+	const deleteAppointmentMutation = useDeleteAppointment(appointment.id)
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target
-		updateEditedAppointment(name, value)
-	}
-
-	const handleUpdate = async () => {
-		if (!editedAppointment.reason || !time) {
-			return toast({
-				title: 'Error',
-				description: 'Todos los campos son requeridos.',
-			})
-		}
-
-		const combinedDateTime = setMinutes(
-			setHours(parseISO(editedAppointment.date), parseInt(time.split(':')[0])),
-			parseInt(time.split(':')[1])
-		)
-
-		const updatedData = {
-			reason: editedAppointment.reason,
-			date: combinedDateTime,
-		}
-
-		const result = await updateAppointment(appointment.id, updatedData)
-		toast({
-			title: result.success ? 'Éxito' : 'Error',
-			description: result.message,
-		})
-		setIsEditing(false)
-	}
-
-	const handleDelete = async () => {
-		const result = await removeAppointment(appointment.id)
-		toast({
-			title: result.success ? 'Éxito' : 'Error',
-			description: result.message,
-		})
-	}
+	const handleDelete = () => deleteAppointmentMutation.mutate()
 
 	return (
 		<div className='pt-2'>
 			{isEditing ? (
-				<AppointmentEditableFields
-					editedAppointment={editedAppointment}
-					time={time}
-					handleInputChange={handleInputChange}
+				<AppointmentUpdate
+					appointment={appointment}
+					setIsEditing={setIsEditing}
 				/>
 			) : (
-				<Appointment appointment={appointment} />
+				<>
+					<Appointment appointment={appointment} />
+					<div className='flex flex-col-reverse pt-6 sm:flex-row sm:justify-end sm:space-x-2'>
+						<Button variant='outline' onClick={() => setIsEditing(true)}>
+							Editar
+						</Button>
+						<Delete onConfirm={handleDelete} />
+					</div>
+				</>
 			)}
-			<ActionButtons
-				isEditing={isEditing}
-				handleUpdate={handleUpdate}
-				setIsEditing={setIsEditing}
-				handleDelete={handleDelete}
-			/>
 		</div>
 	)
 }

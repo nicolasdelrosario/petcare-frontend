@@ -11,6 +11,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
+	DialogDescription,
 	Button,
 } from '@/components/shadcn'
 
@@ -32,11 +33,17 @@ export default function AppointmentDetailsDialog({
 					Ver Detalles
 				</Button>
 			</DialogTrigger>
-			<DialogContent>
+			<DialogContent aria-describedby='appointment-details-description'>
 				<DialogHeader>
 					<DialogTitle className='border-b bg-background pb-2 text-lg font-semibold'>
 						Detalles
 					</DialogTitle>
+					<DialogDescription
+						className='sr-only'
+						id='appointment-details-description'
+					>
+						Información completa sobre la cita.
+					</DialogDescription>
 					<AppointmentDetails appointment={appointment} />
 				</DialogHeader>
 			</DialogContent>

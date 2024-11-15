@@ -1,32 +1,51 @@
-import API_BASE from './api'
+import { createApiInstance } from './api'
 
 // Interfaces
 import { Appointment } from '@/interfaces/Appointment'
 
 const PATH_APPOINTMENTS = '/appointments'
 
-// Get appointments
-export const getAppointments = async (): Promise<Appointment[]> => {
-	const { data } = await API_BASE.get(`${PATH_APPOINTMENTS}`)
-	return data
-}
+export const appointmentService = {
+	getAppointments: async (token: string): Promise<Appointment[]> => {
+		const api = createApiInstance(token)
+		const { data } = await api.get(PATH_APPOINTMENTS)
 
-// Get appointment
-export const getAppointment = async (id: number): Promise<Appointment> => {
-	const { data } = await API_BASE.get(`${PATH_APPOINTMENTS}/${id}`)
-	return data
-}
+		return data
+	},
 
-// Update an appointment
-export const updateAppointment = async (
-	id: number,
-	changes: Partial<Appointment>
-): Promise<Appointment> => {
-	const { data } = await API_BASE.put(`${PATH_APPOINTMENTS}/${id}`, changes)
-	return data
-}
+	getAppointmentById: async (
+		id: number,
+		token: string
+	): Promise<Appointment> => {
+		const api = createApiInstance(token)
+		const { data } = await api.get(`${PATH_APPOINTMENTS}/${id}`)
 
-// Delete an appointment
-export const deleteAppointment = async (id: number): Promise<void> => {
-	await API_BASE.patch(`${PATH_APPOINTMENTS}/${id}`)
+		return data
+	},
+
+	createAppointment: async (
+		changes: Partial<Appointment>,
+		token: string
+	): Promise<Appointment> => {
+		const api = createApiInstance(token)
+		const { data } = await api.post(PATH_APPOINTMENTS, changes)
+
+		return data
+	},
+
+	updateAppointment: async (
+		id: number,
+		changes: Partial<Appointment>,
+		token: string
+	): Promise<Appointment> => {
+		const api = createApiInstance(token)
+		const { data } = await api.put(`${PATH_APPOINTMENTS}/${id}`, changes)
+
+		return data
+	},
+
+	deleteAppointment: async (id: number, token: string): Promise<void> => {
+		const api = createApiInstance(token)
+		await api.patch(`${PATH_APPOINTMENTS}/${id}`)
+	},
 }

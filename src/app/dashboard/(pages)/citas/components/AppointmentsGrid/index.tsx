@@ -2,7 +2,7 @@
 import { Appointment } from '@/interfaces/Appointment'
 
 // Format Date
-import { format } from 'date-fns'
+import { formatDate } from 'date-fns'
 
 // Components
 import { MaxWidthWrapper } from '@/components'
@@ -32,7 +32,7 @@ export default function AppointmentsGrid({
 			<MaxWidthWrapper>
 				<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
 					{appointments.map(appointment => {
-						const { id, date, pet } = appointment
+						const { id, pet, dateTime } = appointment
 						const { name: petName, owner } = pet
 						const { name: ownerName } = owner
 
@@ -47,11 +47,11 @@ export default function AppointmentsGrid({
 									<p className='text-sm font-medium'>{petName}</p>
 									<div className='flex items-center text-sm text-muted-foreground'>
 										<Calendar className='mr-2 size-4' />
-										{format(new Date(date), 'dd MMMM yyyy')}
+										{dateTime && formatDate(dateTime, 'dd MMM yyyy')}
 									</div>
 									<div className='flex items-center text-sm text-muted-foreground'>
 										<Clock className='mr-2 size-4' />
-										{format(new Date(date), 'HH:mm')}
+										{dateTime && formatDate(dateTime, 'HH:mm')}
 									</div>
 								</CardContent>
 								<CardFooter className='px-4 pb-4'>

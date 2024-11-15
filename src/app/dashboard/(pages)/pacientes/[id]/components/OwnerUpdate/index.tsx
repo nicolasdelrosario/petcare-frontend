@@ -1,5 +1,13 @@
-// Interfaces
+//Interface
 import { Owner } from '@/interfaces/Owner'
+
+// Hooks
+import { useUpdateOwner } from '@/hooks/owners/useUpdateOwner'
+import { useForm } from '@/hooks/useForm'
+import { useState } from 'react'
+
+// Components
+import { AnimatedInput } from '@/components'
 
 // Shadcn Components
 import {
@@ -9,30 +17,61 @@ import {
 	DialogTitle,
 	DialogTrigger,
 	Button,
-	Input,
-	Label,
 	DialogFooter,
 } from '@/components/shadcn'
 
 // Icons From Lucide React
 import { UserPen } from 'lucide-react'
 
+// Util
+import { validateWithSchema } from '@/util/validateSchemas'
+
+// Schemas
+import { updateOwnerSchema } from '../OwnerSchema/updateOwnerSchema'
+
 interface OwnerEditProps {
-	isEditing: boolean
-	setIsEditing: (value: boolean) => void
 	owner: Owner
-	handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-	handleUpdate: () => void
+	isEditing: boolean
+	setIsEditing: (isEditing: boolean) => void
 }
 
 export default function OwnerEdit({
 	owner,
-	handleInputChange,
-	handleUpdate,
 	isEditing,
 	setIsEditing,
 }: OwnerEditProps) {
-	const { dni, email, phone, address, name } = owner
+	const updateOwnerMutation = useUpdateOwner()
+	const { email, phone, address } = owner
+	const { formData: editedOwner, handleChange } = useForm<Owner>(owner)
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
+
+	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+
+		const { email, phone, address } = editedOwner
+		const updatedOwner = {
+			email,
+			phone,
+			address,
+		}
+
+		const { data: validateData, errors } = validateWithSchema(
+			updateOwnerSchema,
+			updatedOwner
+		)
+
+		if (errors) return setErrors(errors)
+
+		updateOwnerMutation.mutate({
+			id: owner.id,
+			changes: validateData as Omit<
+				Owner,
+				'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+			>,
+		})
+
+		setIsEditing(false)
+	}
 
 	return (
 		<Dialog open={isEditing} onOpenChange={setIsEditing}>
@@ -54,98 +93,34 @@ export default function OwnerEdit({
 					</DialogTitle>
 				</DialogHeader>
 
-				{/* Inputs */}
-				<div className='space-y-4'>
-					{/* Nombre */}
-					<div className='flex flex-col gap-y-1'>
-						<Label
-							htmlFor='name'
-							className='text-pretty text-sm font-medium text-gray-700'
-						>
-							Nombre
-						</Label>
-						<Input
-							id='name'
-							name='name'
-							value={name}
-							onChange={handleInputChange}
-						/>
-					</div>
+				<form onSubmit={handleUpdate} className='flex flex-col gap-4'>
+					<AnimatedInput
+						id='email'
+						label='Correo Electrónico'
+						defaultValue={email || ''}
+						onChange={handleChange}
+						error={errors.email}
+					/>
 
-					{/* Correo Electrónico */}
-					<div className='flex flex-col gap-y-1'>
-						<Label
-							htmlFor='email'
-							className='text-pretty text-sm font-medium text-gray-700'
-						>
-							Correo Electrónico
-						</Label>
-						<Input
-							id='email'
-							name='email'
-							value={email || ''}
-							onChange={handleInputChange}
-						/>
-					</div>
+					<AnimatedInput
+						id='phone'
+						label='Teléfono'
+						defaultValue={phone || ''}
+						onChange={handleChange}
+						error={errors.phone}
+					/>
+					<AnimatedInput
+						id='address'
+						label='Dirección'
+						defaultValue={address || ''}
+						onChange={handleChange}
+						error={errors.address}
+					/>
 
-					{/* Teléfono */}
-					<div className='flex flex-col gap-y-1'>
-						<Label
-							htmlFor='phone'
-							className='text-pretty text-sm font-medium text-gray-700'
-						>
-							Teléfono
-						</Label>
-						<Input
-							id='phone'
-							name='phone'
-							value={phone || ''}
-							onChange={handleInputChange}
-						/>
-					</div>
-
-					{/* Dirección */}
-					<div className='flex flex-col gap-y-1'>
-						<Label
-							htmlFor='address'
-							className='text-pretty text-sm font-medium text-gray-700'
-						>
-							Dirección
-						</Label>
-						<Input
-							id='address'
-							name='address'
-							value={address || ''}
-							onChange={handleInputChange}
-						/>
-					</div>
-
-					{/* DNI */}
-					<div className='flex flex-col gap-y-1'>
-						<Label
-							htmlFor='dni'
-							className='text-pretty text-sm font-medium text-gray-700'
-						>
-							DNI
-						</Label>
-						<Input
-							id='dni'
-							name='dni'
-							value={dni || ''}
-							onChange={handleInputChange}
-						/>
-					</div>
-				</div>
-
-				{/* Footer */}
-				<DialogFooter>
-					<Button variant='outline' onClick={() => setIsEditing(false)}>
-						Cancelar
-					</Button>
-					<Button variant='default' onClick={handleUpdate}>
-						Guardar
-					</Button>
-				</DialogFooter>
+					<DialogFooter>
+						<Button type='submit'>Guardar</Button>
+					</DialogFooter>
+				</form>
 			</DialogContent>
 		</Dialog>
 	)

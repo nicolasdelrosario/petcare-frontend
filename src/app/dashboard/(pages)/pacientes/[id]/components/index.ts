@@ -9,5 +9,8 @@ export { default as Pet } from './Pet'
 export { default as PetCard } from './PetCard'
 export { default as PetDetails } from './PetDetails'
 export { default as PetDetailsDialog } from './PetDetailsDialog'
-export { default as PetEditableFields } from './PetEditableFields'
+export { default as PetUpdate } from './PetUpdate'
 export { default as PetGrid } from './PetGrid'
+
+// Delete
+export { default as Delete } from '../../../../components/Delete'

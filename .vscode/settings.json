@@ -1,9 +1,14 @@
 {
 	"conventionalCommits.scopes": [
+		"global",
+		"auth",
+		"config",
+		"services",
+		"utils",
+		"hooks",
+		"appointments",
 		"dashboard",
-		"dashboard/appointments",
-		"dashboard/patients",
-		"dashboard/pets",
-		"global"
+		"owners",
+		"pets"
 	]
 }
