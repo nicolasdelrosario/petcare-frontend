@@ -4,32 +4,26 @@ import NextAuth from 'next-auth'
 // Providers
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-// API
-import API_BASE from '@/services/api'
+// Services
+import { authService } from '@/services/auth.service'
 
-interface SessionUser {
-	email: string
-	token: string
-}
+// Interfaces
+import { UserResponse } from '@/interfaces/auth'
 
 const handler = NextAuth({
 	providers: [
 		CredentialsProvider({
 			name: 'Credentials',
 			credentials: {
-				email: { label: 'email', type: 'email', placeholder: 'test@test.com' },
+				email: { label: 'email', type: 'email' },
 				password: { label: 'password', type: 'password' },
 			},
-			// eslint-disable-next-line
-			async authorize(credentials, req) {
-				const { data } = await API_BASE.post('/auth/login', {
-					email: credentials?.email,
-					password: credentials?.password,
-				})
+			async authorize(credentials) {
+				if (!credentials) return null
 
-				const user = data
+				const user = await authService.login(credentials)
 
-				if (user.error) throw user
+				if (!user) return null
 
 				return user
 			},
@@ -41,7 +35,7 @@ const handler = NextAuth({
 		},
 
 		async session({ session, token }) {
-			session.user = token as unknown as SessionUser
+			session.user = token as unknown as UserResponse
 			return session
 		},
 	},
