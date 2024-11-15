@@ -23,11 +23,11 @@ import {
 // Icons From Lucide React
 import { UserPen } from 'lucide-react'
 
-//Schemas
-import { updateOwnerSchema } from '../OwnerSchema/updateOwnerSchema'
+// Util
+import { validateWithSchema } from '@/util/validateSchemas'
 
-//Zod
-import { z } from 'zod'
+// Schemas
+import { updateOwnerSchema } from '../OwnerSchema/updateOwnerSchema'
 
 interface OwnerEditProps {
 	owner: Owner
@@ -47,34 +47,30 @@ export default function OwnerEdit({
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		try {
-			const updatedOwner = {
-				email: editedOwner.email,
-				phone: editedOwner.phone,
-				address: editedOwner.address,
-			}
-			const validateData = updateOwnerSchema.parse(updatedOwner)
-			setErrors({})
 
-			updateOwnerMutation.mutate({
-				id: owner.id,
-				changes: validateData as Omit<
-					Owner,
-					'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
-				>,
-			})
-			setIsEditing(false)
-		} catch (error) {
-			if (error instanceof z.ZodError) {
-				const newErrors: { [key: string]: string } = {}
-				error.errors.forEach(err => {
-					if (err.path[0]) {
-						newErrors[err.path[0] as string] = err.message
-					}
-				})
-				setErrors(newErrors)
-			}
+		const { email, phone, address } = editedOwner
+		const updatedOwner = {
+			email,
+			phone,
+			address,
 		}
+
+		const { data: validateData, errors } = validateWithSchema(
+			updateOwnerSchema,
+			updatedOwner
+		)
+
+		if (errors) return setErrors(errors)
+
+		updateOwnerMutation.mutate({
+			id: owner.id,
+			changes: validateData as Omit<
+				Owner,
+				'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+			>,
+		})
+
+		setIsEditing(false)
 	}
 
 	return (
