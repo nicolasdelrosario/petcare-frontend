@@ -1,7 +1,15 @@
+// Tankstack Query
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateOwner } from '@/services/owner.service'
+
+// Services
+import { ownerService } from '@/services/owner.service'
+
+// Interfaces
 import { Owner } from '@/interfaces/Owner'
+
+// Hooks
 import { useToast } from '@/hooks/useToast'
+import { useToken } from '@/services/auth'
 
 interface EditOwnerData {
 	id: number
@@ -10,11 +18,14 @@ interface EditOwnerData {
 
 export const useUpdateOwner = () => {
 	const queryClient = useQueryClient()
+	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
-		mutationFn: ({ id, changes }: EditOwnerData) => updateOwner(id, changes),
-
+		mutationFn: ({ id, changes }: EditOwnerData) => {
+			if (!token) throw new Error('No token found')
+			return ownerService.updateOwner(id, changes, token)
+		},
 		onSuccess: (_, { id }) => {
 			queryClient.invalidateQueries({ queryKey: ['owner', id] })
 			queryClient.invalidateQueries({ queryKey: ['owners'] })

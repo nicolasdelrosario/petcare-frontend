@@ -1,13 +1,23 @@
+// Tankstack Query
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteAppointment } from '@/services/appointment.service'
+
+// Services
+import { appointmentService } from '@/services/appointment.service'
+
+// Hooks
 import { useToast } from '@/hooks/useToast'
+import { useToken } from '@/services/auth'
 
 export const useDeleteAppointment = (id: number) => {
 	const queryClient = useQueryClient()
+	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
-		mutationFn: () => deleteAppointment(id),
+		mutationFn: () => {
+			if (!token) throw new Error('No token found')
+			return appointmentService.deleteAppointment(id, token)
+		},
 
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['appointment', id] })

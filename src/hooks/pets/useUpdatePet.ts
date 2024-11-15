@@ -1,7 +1,15 @@
+// Tankstack Query
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updatePet } from '@/services/pet.service'
+
+// Services
+import { petService } from '@/services/pet.service'
+
+// Interfaces
 import { Pet } from '@/interfaces/Pet'
+
+// Hooks
 import { useToast } from '@/hooks/useToast'
+import { useToken } from '@/services/auth'
 
 interface EditPetData {
 	id: number
@@ -10,10 +18,14 @@ interface EditPetData {
 
 export const useUpdatePet = () => {
 	const queryClient = useQueryClient()
+	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
-		mutationFn: ({ id, changes }: EditPetData) => updatePet(id, changes),
+		mutationFn: ({ id, changes }: EditPetData) => {
+			if (!token) throw new Error('No token found')
+			return petService.updatePet(id, changes, token)
+		},
 
 		onSuccess: (_, { id }) => {
 			queryClient.invalidateQueries({ queryKey: ['pet', id] })

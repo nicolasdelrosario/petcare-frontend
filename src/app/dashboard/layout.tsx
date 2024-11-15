@@ -1,8 +1,13 @@
 'use client'
 
-import Sidebar from './components/Sidebar'
-import { cn } from '@/lib/utils'
+// Stores
 import { useSidebarStore } from '@/store/useSidebarStore'
+
+// Utils
+import { cn } from '@/lib/utils'
+
+// Components
+import { Sidebar, AddNewButton } from './components'
 
 interface RootLayoutProps {
 	children: React.ReactNode
@@ -22,6 +27,7 @@ export default function Layout({ children }: RootLayoutProps) {
 			>
 				{children}
 			</div>
+			<AddNewButton />
 		</div>
 	)
 }

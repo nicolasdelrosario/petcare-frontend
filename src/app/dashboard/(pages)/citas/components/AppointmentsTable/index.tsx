@@ -2,7 +2,7 @@
 import { Appointment } from '@/interfaces/Appointment'
 
 // Format Date
-import { format } from 'date-fns'
+import { formatDate } from 'date-fns'
 
 // Components
 import { MaxWidthWrapper } from '@/components'
@@ -39,7 +39,7 @@ export default function AppointmentsTable({
 				</TableHeader>
 				<TableBody>
 					{appointments.map((appointment: Appointment) => {
-						const { id, date, pet } = appointment
+						const { id, pet, dateTime } = appointment
 						const { name: petName, owner } = pet
 						const { name: ownerName } = owner
 
@@ -47,8 +47,12 @@ export default function AppointmentsTable({
 							<TableRow key={id}>
 								<TableCell>{ownerName}</TableCell>
 								<TableCell>{petName}</TableCell>
-								<TableCell>{format(new Date(date), 'dd MMMM yyyy')}</TableCell>
-								<TableCell>{format(new Date(date), 'HH:mm')}</TableCell>
+								<TableCell>
+									{dateTime && formatDate(dateTime, 'dd MMM yyyy')}
+								</TableCell>
+								<TableCell>
+									{dateTime && formatDate(dateTime, 'HH:mm')}
+								</TableCell>
 								<TableCell>
 									<AppointmentDetailsDialog appointment={appointment} />
 								</TableCell>

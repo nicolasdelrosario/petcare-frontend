@@ -1,31 +1,45 @@
-import { Pet } from '@/interfaces/Pet'
+import { createApiInstance } from './api'
 
-import API_BASE from './api'
+// Interfaces
+import { Pet } from '@/interfaces/Pet'
 
 const PATH_PETS = '/pets'
 
-// Get Pets
-export const getPets = async () => {
-	const { data } = await API_BASE.get(`${PATH_PETS}`)
-	return data
-}
+export const petService = {
+	getPets: async (token: string): Promise<Pet[]> => {
+		const api = createApiInstance(token)
+		const { data } = await api.get(PATH_PETS)
 
-// Get Pet
-export const getPet = async (id: string) => {
-	const { data } = await API_BASE.get(`${PATH_PETS}/${id}`)
-	return data
-}
+		return data
+	},
 
-// Update Pet
-export const updatePet = async (
-	id: string,
-	changes: Partial<Pet>
-): Promise<Pet> => {
-	const { data } = await API_BASE.put(`${PATH_PETS}/${id}`, changes)
-	return data
-}
+	getPetById: async (id: number, token: string): Promise<Pet> => {
+		const api = createApiInstance(token)
+		const { data } = await api.get(`${PATH_PETS}/${id}`)
 
-// Delete Pet
-export const deletePet = async (id: string): Promise<void> => {
-	await API_BASE.patch(`${PATH_PETS}/${id}`)
+		return data
+	},
+
+	createPet: async (changes: Partial<Pet>, token: string): Promise<Pet> => {
+		const api = createApiInstance(token)
+		const { data } = await api.post(PATH_PETS, changes)
+
+		return data
+	},
+
+	updatePet: async (
+		id: number,
+		changes: Partial<Pet>,
+		token: string
+	): Promise<Pet> => {
+		const api = createApiInstance(token)
+		const { data } = await api.put(`${PATH_PETS}/${id}`, changes)
+
+		return data
+	},
+
+	deletePet: async (id: number, token: string): Promise<void> => {
+		const api = createApiInstance(token)
+		await api.patch(`${PATH_PETS}/${id}`)
+	},
 }
