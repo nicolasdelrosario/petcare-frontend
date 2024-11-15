@@ -53,7 +53,7 @@ export default function Navbar() {
 					) : (
 						<>
 							<Link
-								href='/'
+								href='/registrarse'
 								className={buttonVariants({
 									size: 'sm',
 									className: 'text-xs sm:text-sm',
