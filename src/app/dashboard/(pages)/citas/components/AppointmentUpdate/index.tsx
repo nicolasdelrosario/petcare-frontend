@@ -5,12 +5,19 @@ import { Appointment } from '@/interfaces/Appointment'
 // Hooks
 import { useUpdateAppointment } from '@/hooks/appointments/useUpdateAppointment'
 import { useForm } from '@/hooks/useForm'
+import { useState } from 'react'
 
 // Components
 import { AnimatedInput } from '@/components'
 
 // Shadcn Components
 import { Button } from '@/components/shadcn'
+
+//Schemas
+import { updateAppointmentSchema } from '../AppointmentSchema/updateAppointmentSchema'
+
+//Utils
+import { validateWithSchema } from '@/util/validateSchemas'
 
 interface AppointmentUpdateProps {
 	appointment: Appointment
@@ -24,24 +31,27 @@ export default function AppointmentUpdate({
 	const { date, time, reason } = appointment
 	const { formData: editedAppointment, handleChange } = useForm(appointment)
 	const updateAppointmentMutation = useUpdateAppointment()
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		const {
-			id,
-			createdAt,
-			updatedAt,
-			deletedAt,
-			user,
-			pet,
-			dateTime,
-			...changes
-		} = editedAppointment
+		const { data: validateData, errors } = validateWithSchema(
+			updateAppointmentSchema,
+			{
+				...editedAppointment,
+				date: new Date(editedAppointment.date + 'T00:00:00'),
+			}
+		)
+
+		if (errors) {
+			setErrors(errors)
+			return
+		}
 
 		updateAppointmentMutation.mutate({
 			id: appointment.id,
-			changes,
+			changes: validateData,
 		})
 
 		setIsEditing(false)
@@ -56,6 +66,7 @@ export default function AppointmentUpdate({
 				// @ts-expect-error: The defaultValue may not match the expected string type
 				defaultValue={date}
 				onChange={handleChange}
+				error={errors.date || ''}
 			/>
 
 			<AnimatedInput
@@ -64,6 +75,7 @@ export default function AppointmentUpdate({
 				label='Hora'
 				defaultValue={time}
 				onChange={handleChange}
+				error={errors.time || ''}
 			/>
 
 			<AnimatedInput
@@ -71,6 +83,7 @@ export default function AppointmentUpdate({
 				label='Motivo'
 				onChange={handleChange}
 				defaultValue={reason}
+				error={errors.reason || ''}
 			/>
 
 			<div className='flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2'>
