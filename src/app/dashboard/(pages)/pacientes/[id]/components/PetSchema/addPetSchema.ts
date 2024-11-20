@@ -8,26 +8,23 @@ export const addPetSchema = z.object({
 		.refine(name => name.trim() !== '', {
 			message: 'El nombre es requerido',
 		}),
-	specie: z
+	species: z
 		.string()
 		.min(3, { message: 'Ingrese una nombre valido (minimo 3 caracteres)' })
 		.max(30, {
 			message: 'El nombre de la especie no debe exceder los 30 caracteres',
 		})
 		.optional(),
-	type: z
+	breed: z
 		.string()
 		.min(3, { message: 'Ingrese una nombre valido (minimo 3 caracteres)' })
 		.max(30, {
 			message: 'El nombre de la raza no debe exceder los 30 caracteres',
 		})
 		.optional(),
-	age: z
-		.string()
-		.refine(weight => !isNaN(parseFloat(weight)), {
-			message: 'La edad debe contener solo numeros',
-		})
-		.optional(),
+	birthDate: z.date().refine(date => date.getTime() <= Date.now(), {
+		message: 'La fecha de nacimiento no puede ser mayor a la fecha actual',
+	}),
 	color: z
 		.string()
 		.min(3, { message: 'Ingrese un color valido (minimo 3 caracteres)' })
@@ -48,4 +45,6 @@ export const addPetSchema = z.object({
 			message: 'Las caracteristicas no deben excerder los 100 caracteres',
 		})
 		.optional(),
+	sex: z.boolean(),
+	ownerId: z.number(),
 })
