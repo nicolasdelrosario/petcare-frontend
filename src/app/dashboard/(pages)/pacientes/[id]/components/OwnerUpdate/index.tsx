@@ -48,19 +48,15 @@ export default function OwnerEdit({
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		const { email, phone, address } = editedOwner
-		const updatedOwner = {
-			email,
-			phone,
-			address,
-		}
-
 		const { data: validateData, errors } = validateWithSchema(
 			updateOwnerSchema,
-			updatedOwner
+			editedOwner
 		)
 
-		if (errors) return setErrors(errors)
+		if (errors) {
+			setErrors(errors)
+			return
+		}
 
 		updateOwnerMutation.mutate({
 			id: owner.id,
