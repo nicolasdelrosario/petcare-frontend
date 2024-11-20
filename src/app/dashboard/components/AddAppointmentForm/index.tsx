@@ -4,6 +4,7 @@
 import { useForm } from '@/hooks/useForm'
 import { usePets } from '@/hooks/pets/usePets'
 import { useCreateAppointment } from '@/hooks/appointments/useCreateAppointment'
+import { useState } from 'react'
 
 // Interfaces
 import { Appointment } from '@/interfaces/Appointment'
@@ -17,6 +18,12 @@ import { Button } from '@/components/shadcn'
 
 // Lucide Icons
 import { Clock, NotepadText } from 'lucide-react'
+
+//Schemas
+import { addAppointmentSchema } from '../../(pages)/citas/components/AppointmentSchema/addAppointmentSchema'
+
+//Utils
+import { validateWithSchema } from '@/util/validateSchemas'
 
 interface AddAppointmentFormProps {
 	onSuccess: () => void
@@ -32,6 +39,7 @@ export default function AddAppointmentForm({
 }: AddAppointmentFormProps) {
 	const pets = usePets()
 	const createAppointment = useCreateAppointment()
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const {
 		formData: appointmentData,
@@ -47,7 +55,21 @@ export default function AddAppointmentForm({
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		createAppointment.mutate(appointmentData)
+
+		const { data: validData, errors } = validateWithSchema(
+			addAppointmentSchema,
+			{
+				...appointmentData,
+				date: new Date(appointmentData.date + 'T00:00:00'),
+			}
+		)
+
+		if (errors) {
+			setErrors(errors)
+			return
+		}
+
+		createAppointment.mutate(validData)
 		onSuccess()
 	}
 
@@ -73,6 +95,7 @@ export default function AddAppointmentForm({
 					label='Fecha'
 					type='date'
 					onChange={handleChange}
+					error={errors.date || ''}
 				/>
 				<AnimatedInput
 					key='time'
@@ -81,6 +104,7 @@ export default function AddAppointmentForm({
 					type='time'
 					onChange={handleChange}
 					icon={<Clock />}
+					error={errors.time || ''}
 				/>
 			</div>
 
@@ -91,10 +115,11 @@ export default function AddAppointmentForm({
 				type='text'
 				onChange={handleChange}
 				icon={<NotepadText />}
+				error={errors.reason || ''}
 			/>
 
 			<div className='mt-8 flex justify-end'>
-				<Button type='submit'>Agregar Propietario</Button>
+				<Button type='submit'>Agendar Cita</Button>
 			</div>
 		</form>
 	)
