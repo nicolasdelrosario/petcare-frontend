@@ -16,10 +16,11 @@ export default function NotFound() {
 				</div>
 
 				<div className='relative space-y-3'>
-					<h1 className='text-4xl font-bold tracking-tight'>Not Found</h1>
+					<h1 className='text-3xl font-bold tracking-tight'>
+						404 - No Encontrado
+					</h1>
 					<p className='text-base text-muted-foreground'>
-						The page you&apos;re looking for doesn&apos;t exist or an other
-						error ocurred.
+						La página que busca no existe o se ha producido otro error.
 					</p>
 				</div>
 
@@ -30,7 +31,7 @@ export default function NotFound() {
 						className='gap-2'
 					>
 						<Home className='h-4 w-4' />
-						Return Home
+						Volver a inicio
 					</Button>
 					<Button
 						variant='outline'
@@ -38,7 +39,7 @@ export default function NotFound() {
 						className='gap-2'
 					>
 						<MoveLeft className='h-4 w-4' />
-						Go Back
+						Volver
 					</Button>
 				</div>
 			</div>
