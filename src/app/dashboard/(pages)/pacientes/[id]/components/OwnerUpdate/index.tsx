@@ -53,10 +53,7 @@ export default function OwnerEdit({
 			editedOwner
 		)
 
-		if (errors) {
-			setErrors(errors)
-			return
-		}
+		if (errors) return setErrors(errors)
 
 		updateOwnerMutation.mutate({
 			id: owner.id,
