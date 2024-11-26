@@ -1,18 +1,18 @@
 import { UserRol } from './UserRol'
-import { Vet } from './Vet'
+import { Workspace } from './Workspace'
 import { Appointment } from './Appointment'
 
 export interface User {
 	id: number
+	email: string
 	name: string
 	dni?: string
-	email: string
 	phone?: string
 	password: string
-	userRol: UserRol
-	vet: Vet
-	appointments: Appointment[]
+	role: 'user' | 'admin'
+	workspace: Workspace
+	appointments?: Appointment[]
 	createdAt: Date
 	updatedAt: Date
-	deletedAt?: Date
+	deletedAt?: Date | null
 }
