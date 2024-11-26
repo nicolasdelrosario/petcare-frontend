@@ -32,7 +32,11 @@ const navItems = [
 ]
 
 const bottomNavItems = [
-	{ name: 'Ajustes', href: '/ajustes', icon: Settings },
+	{
+		name: 'Ajustes',
+		href: '/dashboard/ajustes',
+		icon: Settings,
+	},
 	{ name: 'Ayuda', href: '/ayuda', icon: HelpCircle },
 ]
 export default function Sidebar() {
