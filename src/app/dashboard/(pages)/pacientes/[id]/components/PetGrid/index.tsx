@@ -1,3 +1,6 @@
+// Next
+import Link from 'next/link'
+
 // Interfaces
 import { Pet } from '@/interfaces/Pet'
 
@@ -11,10 +14,11 @@ import {
 	CardTitle,
 	CardContent,
 	CardFooter,
+	buttonVariants,
 } from '@/components/shadcn'
 
 // Lucide Icons
-import { Cat, Squirrel, Weight } from 'lucide-react'
+import { Cat, Squirrel, Weight, History } from 'lucide-react'
 
 interface PetGridProps {
 	pets: Pet[]
@@ -37,20 +41,27 @@ export default function PetGrid({ pets }: PetGridProps) {
 							</CardHeader>
 							<CardContent className='space-y-2 p-4'>
 								<div className='flex items-center text-sm text-muted-foreground'>
-									<Cat className='mr-2 h-4 w-4' />
+									<Cat className='mr-2 size-4' />
 									{species || 'Especie no especificada.'}
 								</div>
 								<div className='flex items-center text-sm text-muted-foreground'>
-									<Squirrel className='mr-2 h-4 w-4' />
+									<Squirrel className='mr-2 size-4' />
 									{sex ? 'Macho' : 'Hembra'}
 								</div>
 								<div className='flex items-center text-sm text-muted-foreground'>
-									<Weight className='mr-2 h-4 w-4' />
+									<Weight className='mr-2 size-4' />
 									{weight ? `${weight} kg` : 'Peso no especificado.'}
 								</div>
 							</CardContent>
-							<CardFooter className='px-4 pb-4'>
+							<CardFooter className='flex flex-col space-y-4 px-4'>
 								<PetDetailsDialog pet={pet} />
+								<Link
+									href={`/dashboard/mascotas/${id}`}
+									className={buttonVariants() + ' w-full'}
+								>
+									<History className='mr-2 size-4' />
+									Ver Historial
+								</Link>
 							</CardFooter>
 						</Card>
 					)
