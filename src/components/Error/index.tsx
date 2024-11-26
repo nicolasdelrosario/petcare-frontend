@@ -4,11 +4,11 @@ import { Button } from '@/components/shadcn/button'
 import { FileQuestion, RotateCcw } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
-export default function Error({
-	error,
-}: {
-	error: Error & { digest?: string }
-}) {
+interface Props {
+	error?: Error & { digest?: string }
+}
+
+export default function Error({ error }: Props) {
 	const router = useRouter()
 	return (
 		<main className='flex min-h-screen items-center justify-center bg-gradient-to-b from-background to-muted p-4'>
