@@ -9,6 +9,7 @@
 		"appointments",
 		"dashboard",
 		"owners",
-		"pets"
+		"pets",
+		"users"
 	]
 }
