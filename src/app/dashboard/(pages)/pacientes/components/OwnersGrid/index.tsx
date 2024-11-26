@@ -42,18 +42,18 @@ export default function OwnersGrid({ owners }: OwnersGridProps) {
 							<CardContent className='p-4'>
 								<div className='flex items-center text-sm text-muted-foreground'>
 									<Phone className='mr-2 h-4 w-4' />
-									{owner?.phone}
+									{owner?.phone ? owner?.phone : 'Teléfono no especificado.'}
 								</div>
 								<div className='flex items-center text-sm text-muted-foreground'>
 									<IdCard className='mr-2 h-4 w-4' />
-									{owner?.dni}
+									{owner?.dni ? owner?.dni : 'DNI no especificado.'}
 								</div>
-								<div className='flex items-center text-sm text-muted-foreground'>
+								{/* <div className='flex items-center text-sm text-muted-foreground'>
 									<PawPrint className='mr-2 h-4 w-4' />
 									{owner?.pets
 										? `${owner?.pets?.length} mascotas`
 										: 'No tiene mascotas'}
-								</div>
+								</div> */}
 							</CardContent>
 							<CardFooter className='className="bg-muted px-4 pb-4'>
 								<Link
