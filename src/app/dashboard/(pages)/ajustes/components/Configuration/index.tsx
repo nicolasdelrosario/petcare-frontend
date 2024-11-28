@@ -5,12 +5,16 @@ import {
 	CardTitle,
 	CardContent,
 	CardDescription,
-	Button,
 	Switch,
 	Label,
 } from '@/components/shadcn'
 
-export default function index() {
+//Hooks
+import { useTheme } from 'next-themes'
+
+export default function Index() {
+	const { setTheme, resolvedTheme } = useTheme()
+
 	return (
 		<>
 			<Card className='mt-8'>
@@ -28,7 +32,10 @@ export default function index() {
 								Elige tu tema preferido.
 							</p>
 						</div>
-						<Switch />
+						<Switch
+							checked={resolvedTheme === 'dark'}
+							onCheckedChange={checked => setTheme(checked ? 'dark' : 'light')}
+						/>
 					</div>
 				</CardContent>
 			</Card>
