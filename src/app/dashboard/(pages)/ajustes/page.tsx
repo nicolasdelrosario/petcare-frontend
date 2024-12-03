@@ -15,10 +15,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn'
 
 // Lucide Icons
 import { Settings, User, Users } from 'lucide-react'
+import { useUserById } from '@/hooks/users/useUserById'
 
 export default function Seetings() {
 	const { data: session } = useSession()
-	const { data: user } = useUserByEmail(session?.user.email as string)
+	const { data: user } = useUserById(session?.user.userId as number)
 
 	return (
 		<MaxWidthWrapper className='mt-8 space-y-4'>
