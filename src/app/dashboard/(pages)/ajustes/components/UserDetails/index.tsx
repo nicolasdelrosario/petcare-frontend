@@ -26,7 +26,8 @@ export default function UserDetails({ user }: Props) {
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		const { id, createdAt, updatedAt, deletedAt, role, ...changes } = editedUser
+		const { id, createdAt, updatedAt, deletedAt, role, workspace, ...changes } =
+			editedUser
 
 		updateUser.mutate({
 			id: user.id,
