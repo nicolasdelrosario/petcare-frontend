@@ -9,21 +9,22 @@ import { Workspace } from '@/interfaces/Workspace'
 
 // Hooks
 import { useToast } from '@/hooks/useToast'
-import { useToken } from '@/services/auth'
 
-export const useCreateWorkspace = () => {
+export const useCreateWorkspace = (
+	onSuccessCallback?: (workspaceId: number) => void
+) => {
 	const queryClient = useQueryClient()
-	const token = useToken()
 	const { toast } = useToast()
 
 	return useMutation({
 		mutationFn: (changes: Partial<Workspace>) => {
-			if (!token) throw new Error('No token found')
-			return workspaceService.createWorkspace(changes, token)
+			return workspaceService.createWorkspace(changes)
 		},
 
-		onSuccess: () => {
+		onSuccess: data => {
 			queryClient.invalidateQueries({ queryKey: ['workspaces'] })
+
+			if (onSuccessCallback) onSuccessCallback(data.id)
 			toast({
 				title: 'Éxito',
 				description: 'El espacio de trabajo ha sido creado exitosamente.',
