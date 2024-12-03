@@ -34,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 			<body className={cn('min-h-screen', poppins.className)}>
 				<Providers>
 					{isHomePage && (
-						<header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
+						<header className='sticky inset-x-0 top-0 z-[100] h-14 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all dark:bg-black'>
 							<Navbar />
 						</header>
 					)}

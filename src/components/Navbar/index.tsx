@@ -21,7 +21,7 @@ export default function Navbar() {
 
 	return (
 		<MaxWidthWrapper>
-			<nav className='flex h-14 items-center justify-between border-b border-zinc-200 dark:border-zinc-400'>
+			<nav className='flex h-14 items-center justify-between border-b border-zinc-200 dark:border-gray-200'>
 				<Link href='/' className='z-40 flex text-lg font-semibold'>
 					Petcare
 				</Link>
