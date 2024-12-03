@@ -76,3 +76,6 @@ export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
 
 // Switch
 export { Switch } from './react-switch'
+
+// Separator
+export { Separator } from './separator'
