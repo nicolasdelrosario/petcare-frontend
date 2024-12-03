@@ -11,7 +11,9 @@ export interface LoginCredentials {
 }
 
 export interface UserResponse {
-	email: string
-	token: string
 	error?: string
+	name: string
+	token: string
+	userId: number
+	workspaceId: number
 }
