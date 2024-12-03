@@ -13,7 +13,10 @@ import { useToken } from '@/services/auth'
 
 interface EditPetData {
 	id: number
-	changes: Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'role'>
+	changes: Omit<
+		User,
+		'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'role' | 'workspace'
+	>
 }
 
 export const useUpdateUser = () => {
