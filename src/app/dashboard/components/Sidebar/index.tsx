@@ -123,7 +123,7 @@ export default function Sidebar() {
 						<Button
 							variant='ghost'
 							size={open ? 'sm' : 'icon'}
-							className='mt-2 w-full justify-start'
+							className={`mt-2 w-full ${open ? 'justify-start' : 'justify-center'}`}
 							onClick={toggleOpen}
 						>
 							{open ? (
