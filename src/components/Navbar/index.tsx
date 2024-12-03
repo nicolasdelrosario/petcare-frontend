@@ -21,7 +21,7 @@ export default function Navbar() {
 
 	return (
 		<MaxWidthWrapper>
-			<nav className='flex h-14 items-center justify-between border-b border-zinc-200'>
+			<nav className='flex h-14 items-center justify-between border-b border-zinc-200 dark:border-zinc-400'>
 				<Link href='/' className='z-40 flex text-lg font-semibold'>
 					Petcare
 				</Link>
@@ -43,7 +43,7 @@ export default function Navbar() {
 
 							<Button
 								variant='outline'
-								className='text-xs sm:text-sm'
+								className='text-xs dark:border-zinc-200 sm:text-sm'
 								onClick={() => signOut()}
 							>
 								<DoorOpen className='mr-1.5 size-5' />
@@ -70,7 +70,7 @@ export default function Navbar() {
 								className={buttonVariants({
 									size: 'sm',
 									variant: 'outline',
-									className: 'text-xs sm:text-sm',
+									className: 'text-xs dark:border-zinc-200 sm:text-sm',
 								})}
 							>
 								<DoorClosed className='mr-1.5 size-5' />

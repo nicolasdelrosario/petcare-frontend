@@ -47,7 +47,7 @@ export default function AnimatedInput({
 					defaultValue={defaultValue}
 					placeholder={placeholder}
 					className={cn(
-						'text-pretty pr-10 text-base',
+						'text-pretty pr-10 text-base dark:border-zinc-700 dark:focus:border-zinc-100',
 						icon && 'pr-10',
 						className
 					)}

@@ -24,16 +24,18 @@ export default function Home() {
 	return (
 		<div className='bg-slate-50'>
 			{/* main section */}
-			<section>
+			<section className='dark:bg-black'>
 				<MaxWidthWrapper className='pb-24 pt-10 sm:pb-32 lg:gap-x-0 lg:pt-24 xl:grid xl:grid-cols-12 xl:gap-x-8 xl:pb-52 xl:pt-32'>
 					<div className='col-span-7 px-6 lg:px-0 lg:pt-4'>
 						<div className='flex flex-col items-center text-center xl:items-start xl:text-left'>
-							<h1 className='mt-16 w-fit text-balance text-4xl font-bold leading-relaxed tracking-tight text-gray-900 md:text-5xl md:!leading-tight lg:text-6xl'>
+							<h1 className='mt-16 w-fit text-balance text-4xl font-bold leading-relaxed tracking-tight text-gray-900 dark:text-gray-100 md:text-5xl md:!leading-tight lg:text-6xl'>
 								Plataforma Integral Para la
-								<span className='bg-primary px-2 text-white'>Gestion</span>
+								<span className='bg-primary px-2 text-white dark:text-black'>
+									Gestion
+								</span>
 								de Clínicas Veterinarias.
 							</h1>
-							<p className='mt-8 max-w-prose text-balance text-lg md:text-wrap lg:pr-10 lg:text-left'>
+							<p className='mt-8 max-w-prose text-balance text-lg dark:text-gray-100 md:text-wrap lg:pr-10 lg:text-left'>
 								Simplifica y automatiza la gestión de tu clínica veterinaria con
 								una plataforma diseñada para optimizar cada detalle.
 							</p>
@@ -60,18 +62,18 @@ export default function Home() {
 			</section>
 
 			{/* value proposition section */}
-			<section className='bg-slate-100 py-24'>
+			<section className='bg-slate-100 py-24 dark:bg-black'>
 				<MaxWidthWrapper className='flex flex-col items-center'>
-					<h2 className='mt-2 text-balance text-center text-4xl font-bold leading-relaxed tracking-tight text-gray-900 md:text-5xl lg:text-6xl'>
+					<h2 className='mt-2 text-balance text-center text-4xl font-bold leading-relaxed tracking-tight text-gray-900 dark:text-gray-100 md:text-5xl lg:text-6xl'>
 						Nuestros Beneficios
 					</h2>
 					<div className='pt-10 lg:grid lg:grid-cols-4 lg:gap-x-4 lg:pt-24 xl:gap-x-8 xl:pt-32'>
 						<div className='col-span-full lg:order-2 lg:col-span-2'>
-							<h3 className='mt-2 text-balance text-center text-2xl font-bold leading-relaxed tracking-tight text-gray-900 md:text-3xl lg:text-start lg:text-4xl'>
+							<h3 className='mt-2 text-balance text-center text-2xl font-bold leading-relaxed tracking-tight text-gray-900 dark:text-gray-100 md:text-3xl lg:text-start lg:text-4xl'>
 								Descubre los Beneficios de PetCare
 							</h3>
 							{
-								<ul className='my-8 flex flex-col items-start space-y-2 text-left font-medium lg:mb-0'>
+								<ul className='my-8 flex flex-col items-start space-y-2 text-left font-medium dark:text-gray-100 lg:mb-0'>
 									{features.map((feature, index) => (
 										<li
 											key={index}
@@ -96,21 +98,23 @@ export default function Home() {
 			</section>
 
 			{/* cta section */}
-			<section className='py-24'>
+			<section className='py-24 dark:bg-black'>
 				<MaxWidthWrapper>
 					<div className='grid place-content-center rounded-lg border-2 border-primary p-8'>
-						<h2 className='mt-2 text-balance text-center text-4xl font-bold leading-relaxed tracking-tight text-gray-900 md:text-5xl md:!leading-tight lg:text-6xl'>
-							<span className='bg-primary px-2 text-white'>Transforma</span> la
-							Gestión de tu Clínica Veterinaria Hoy
+						<h2 className='mt-2 text-balance text-center text-4xl font-bold leading-relaxed tracking-tight text-gray-900 dark:text-gray-100 md:text-5xl md:!leading-tight lg:text-6xl'>
+							<span className='bg-primary px-2 text-white dark:text-black'>
+								Transforma
+							</span>{' '}
+							la Gestión de tu Clínica Veterinaria Hoy
 						</h2>
 
 						<div className='xl:grid xl:grid-cols-3 xl:gap-x-12'>
 							<div className='col-span-2 text-center md:text-start'>
-								<h3 className='mt-12 max-w-prose text-balance text-2xl font-semibold md:text-wrap'>
+								<h3 className='mt-12 max-w-prose text-balance text-2xl font-semibold dark:text-gray-100 md:text-wrap'>
 									¿Listo para mejorar la eficiencia de tu clínica y brindar una
 									mejor atención a tus clientes?
 								</h3>
-								<p className='mt-4 max-w-prose text-balance text-lg md:text-wrap'>
+								<p className='mt-4 max-w-prose text-balance text-lg dark:text-gray-100 md:text-wrap'>
 									Simplifica cada aspecto de la gestión y lleva tu clínica al
 									siguiente nivel. Nuestra plataforma está diseñada para
 									ayudarte a ahorrar tiempo, reducir errores y optimizar tu
@@ -133,7 +137,8 @@ export default function Home() {
 									className={buttonVariants({
 										size: 'lg',
 										variant: 'outline',
-										className: 'mt-8 sm:mt-12',
+										className:
+											'mt-8 dark:border-primary dark:text-gray-100 sm:mt-12',
 									})}
 								>
 									Solicitar una Demo
