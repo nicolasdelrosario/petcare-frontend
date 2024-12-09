@@ -20,13 +20,6 @@ export const userService = {
 		return data
 	},
 
-	getUserByEmail: async (email: string, token: string): Promise<User> => {
-		const api = createApiInstance(token)
-		const { data } = await api.get(`${PATH_USERS}/email/${email}`)
-
-		return data
-	},
-
 	updateUser: async (
 		id: number,
 		changes: Partial<User>,
