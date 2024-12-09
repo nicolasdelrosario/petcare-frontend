@@ -79,3 +79,6 @@ export { Switch } from './react-switch'
 
 // Separator
 export { Separator } from './separator'
+
+// Badge
+export { Badge, badgeVariants } from './badge'
