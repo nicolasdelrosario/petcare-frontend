@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 // Hooks
 import { useForm } from '@/hooks/useForm'
 import { useLogin } from '@/hooks/auth/useLogin'
+import { useState } from 'react'
 
 // Interfaces
 import { LoginCredentials } from '@/interfaces/auth'
@@ -20,17 +21,33 @@ import { Button, buttonVariants } from '@/components/shadcn/button'
 // Lucide Icons
 import { Mail, Lock } from 'lucide-react'
 
+//Schema
+import { validateWithSchema } from '@/util/validateSchemas'
+import { logInSchema } from './schema'
+
 export default function Login() {
 	const router = useRouter()
 	const { formData: userData, handleChange } = useForm<LoginCredentials>(
 		{} as LoginCredentials
 	)
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const login = useLogin(() => router.push('/dashboard/home'))
 
 	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		login.mutate(userData)
+
+		const { data: validData, errors } = validateWithSchema(
+			logInSchema,
+			userData
+		)
+
+		if (errors) {
+			setErrors(errors)
+			return
+		}
+
+		login.mutate(validData)
 	}
 
 	return (
@@ -51,6 +68,7 @@ export default function Login() {
 							className='bg-transparent'
 							onChange={handleChange}
 							icon={<Mail />}
+							error={errors.email || ''}
 						/>
 
 						<AnimatedInput
@@ -61,6 +79,7 @@ export default function Login() {
 							className='bg-transparent'
 							onChange={handleChange}
 							icon={<Lock />}
+							error={errors.password || ''}
 						/>
 					</div>
 

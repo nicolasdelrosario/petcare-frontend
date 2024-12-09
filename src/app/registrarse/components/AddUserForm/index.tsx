@@ -9,6 +9,7 @@ import { RegisterCredentials } from '@/interfaces/auth'
 // Hooks
 import { useForm } from '@/hooks/useForm'
 import { useRegister } from '@/hooks/auth/useRegister'
+import { useState } from 'react'
 
 // Shadcn Components
 import { Button } from '@/components/shadcn'
@@ -18,6 +19,10 @@ import { Mail, Lock, UserRound } from 'lucide-react'
 
 // Components
 import { AnimatedInput } from '@/components'
+
+//Schemas
+import { validateWithSchema } from '@/util/validateSchemas'
+import { signUpSchema } from '../../schema'
 
 interface Props {
 	handleBack: () => void
@@ -30,10 +35,22 @@ export default function AddUserForm({ handleBack, workspaceId }: Props) {
 		{} as RegisterCredentials
 	)
 	const register = useRegister(() => router.push('/iniciar-sesion'))
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		register.mutate({ ...userData, workspaceId })
+
+		const { data: validData, errors } = validateWithSchema(signUpSchema, {
+			...userData,
+			workspaceId,
+		})
+
+		if (errors) {
+			setErrors(errors)
+			return
+		}
+
+		register.mutate({ ...validData })
 	}
 
 	return (
@@ -47,6 +64,7 @@ export default function AddUserForm({ handleBack, workspaceId }: Props) {
 					className='bg-transparent'
 					onChange={handleChange}
 					icon={<UserRound />}
+					error={errors.name || ''}
 				/>
 
 				<AnimatedInput
@@ -57,6 +75,7 @@ export default function AddUserForm({ handleBack, workspaceId }: Props) {
 					className='bg-transparent'
 					onChange={handleChange}
 					icon={<Mail />}
+					error={errors.email || ''}
 				/>
 
 				<AnimatedInput
@@ -67,6 +86,7 @@ export default function AddUserForm({ handleBack, workspaceId }: Props) {
 					className='bg-transparent'
 					onChange={handleChange}
 					icon={<Lock />}
+					error={errors.password || ''}
 				/>
 			</div>
 
