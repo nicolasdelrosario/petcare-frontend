@@ -50,10 +50,7 @@ export default function AddOwnerForm({ onSuccess }: AddOwnerFormProps) {
 			ownerData
 		)
 
-		if (errors) {
-			setErrors(errors)
-			return
-		}
+		if (errors) return setErrors(errors)
 
 		createOwner.mutate(validData)
 		onSuccess()
