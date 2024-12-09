@@ -20,10 +20,10 @@ export default function Pet({ pet }: PetProps) {
 	return (
 		<div className='space-y-4'>
 			<div className='grid grid-cols-2 gap-4 text-muted-foreground'>
-				{petDetails.map(({ icon: Icon, label }, index) => (
+				{petDetails.map(({ icon: Icon, value }, index) => (
 					<div key={index} className='flex items-center'>
 						{Icon && <Icon className='mr-2 h-4 w-4' />}
-						{label}
+						{value}
 					</div>
 				))}
 			</div>
