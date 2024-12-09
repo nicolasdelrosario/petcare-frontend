@@ -20,7 +20,7 @@ export const useRegister = (onSuccessCallback?: () => void) => {
 		},
 
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['user'] })
+			queryClient.invalidateQueries({ queryKey: ['users'] })
 
 			if (onSuccessCallback) onSuccessCallback()
 			toast({
