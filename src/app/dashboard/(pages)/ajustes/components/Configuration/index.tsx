@@ -39,7 +39,7 @@ export default function Index() {
 					</div>
 				</CardContent>
 			</Card>
-			<Card className='mt-8'>
+			{/* <Card className='mt-8'>
 				<CardHeader>
 					<CardTitle>Notificaciones</CardTitle>
 					<CardDescription>
@@ -57,7 +57,7 @@ export default function Index() {
 						<Switch />
 					</div>
 				</CardContent>
-			</Card>
+			</Card> */}
 		</>
 	)
 }
