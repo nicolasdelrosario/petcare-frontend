@@ -26,6 +26,7 @@ export default function UserDetails({ user }: Props) {
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { id, createdAt, updatedAt, deletedAt, role, workspace, ...changes } =
 			editedUser
 
@@ -74,8 +75,8 @@ export default function UserDetails({ user }: Props) {
 						/>
 					)}
 
-					<div className='flex justify-end'>
-						<Button>Save Changes</Button>
+					<div className='mt-4 flex justify-end'>
+						<Button>Guardar</Button>
 					</div>
 				</form>
 			</CardContent>
