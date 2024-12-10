@@ -3,19 +3,18 @@
 // Auth
 import { useSession } from 'next-auth/react'
 
-// Services
-import { useUserByEmail } from '@/hooks/users/useUserByEmail'
+// Hooks
+import { useUserById } from '@/hooks/users/useUserById'
 
 // Components
 import { MaxWidthWrapper } from '@/components'
-import { Configuration, UserDetails } from './components'
+import { Configuration, UserDetails, UsersDetails } from './components'
 
 // Shadcn Components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/shadcn'
 
 // Lucide Icons
 import { Settings, User, Users } from 'lucide-react'
-import { useUserById } from '@/hooks/users/useUserById'
 
 export default function Seetings() {
 	const { data: session } = useSession()
@@ -51,7 +50,7 @@ export default function Seetings() {
 					{user && <UserDetails user={user} />}
 				</TabsContent>
 				<TabsContent value='team'>
-					<p>Team</p>
+					{user && <UsersDetails workspaceId={user.workspace.id} />}
 				</TabsContent>
 			</Tabs>
 		</MaxWidthWrapper>
