@@ -2,7 +2,7 @@
 import { formatDate } from 'date-fns'
 
 // Interfaces
-import { Appointment } from '@/interfaces/Appointment'
+import { Pet } from '@/interfaces/Pet'
 
 // Shadcn Components
 import { Card, CardContent, ScrollArea } from '@/components/shadcn'
@@ -10,15 +10,18 @@ import { Card, CardContent, ScrollArea } from '@/components/shadcn'
 // Icons
 import { Calendar, NotepadText } from 'lucide-react'
 
+// Components
+import { PDFGeneratorService } from '../'
+
 interface PetHistoryProps {
-	appointments: Appointment[]
+	pet: Pet
 }
 
-export default function PetHistory({ appointments }: PetHistoryProps) {
+export default function PetHistory({ pet }: PetHistoryProps) {
 	return (
 		<ScrollArea className='h-[calc(100vh-12rem)] pr-4'>
 			<div className='flex flex-col gap-y-4 space-y-4'>
-				{appointments.map(appointment => {
+				{pet.appointments.map(appointment => {
 					const { dateTime, reason } = appointment
 
 					return (
@@ -42,6 +45,10 @@ export default function PetHistory({ appointments }: PetHistoryProps) {
 						</Card>
 					)
 				})}
+			</div>
+
+			<div className='mt-8 flex justify-end'>
+				<PDFGeneratorService pet={pet} />
 			</div>
 		</ScrollArea>
 	)
