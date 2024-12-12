@@ -32,12 +32,16 @@ export default function PetHistory({ pet }: PetHistoryProps) {
 										<div className='flex items-center space-x-2 font-medium'>
 											<Calendar className='size-5' />
 											<span className='text-md truncate tracking-tight'>
-												{dateTime && formatDate(dateTime, 'dd MMM yyyy')}
+												{dateTime
+													? formatDate(dateTime, 'dd MMM yyyy')
+													: 'Fecha no disponible'}
 											</span>
 										</div>
 										<div className='flex items-center space-x-2 font-medium text-muted-foreground'>
 											<NotepadText className='size-5' />
-											<span className='text-md'>{reason}</span>
+											<span className='text-md'>
+												{reason || 'Motivo no especificada'}
+											</span>
 										</div>
 									</div>
 								</div>
