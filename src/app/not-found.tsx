@@ -12,7 +12,7 @@ export default function NotFound() {
 			<div className='w-full max-w-md space-y-6 text-center'>
 				<div className='relative'>
 					<div className='absolute -top-2 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl' />
-					<Compass className='mx-auto h-24 w-24 animate-pulse text-primary' />
+					<Compass className='mx-auto h-24 w-24 text-primary' />
 				</div>
 
 				<div className='relative space-y-3'>
