@@ -32,9 +32,19 @@ import {
 import { useSidebar } from '@/store/useSidebarStore'
 
 const navItems = [
-	{ name: 'Home', href: '/dashboard/home', icon: Home },
-	{ name: 'Citas', href: '/dashboard/citas', icon: Calendar },
-	{ name: 'Pacientes', href: '/dashboard/pacientes', icon: Users },
+	{ name: 'Home', href: '/dashboard/home', icon: Home, description: 'Inicio' },
+	{
+		name: 'Citas',
+		href: '/dashboard/citas',
+		icon: Calendar,
+		description: 'Citas',
+	},
+	{
+		name: 'Pacientes',
+		href: '/dashboard/pacientes',
+		icon: Users,
+		description: 'Pacientes',
+	},
 ]
 
 export default function Sidebar() {
@@ -66,6 +76,9 @@ export default function Sidebar() {
 							size='icon'
 							className='ml-auto'
 							onClick={toggleOpen}
+							aria-label={
+								open ? 'Cambiar a vista compacta' : 'Abrir vista expandida'
+							}
 						>
 							{open ? (
 								<ChevronLeft className='h-4 w-4' />
@@ -80,6 +93,7 @@ export default function Sidebar() {
 								<Link
 									key={item.href}
 									href={item.href}
+									aria-label={item.description}
 									className={cn(
 										'flex items-center rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground',
 										pathname === item.href
@@ -104,6 +118,7 @@ export default function Sidebar() {
 									: 'text-muted-foreground',
 								!open && 'justify-center'
 							)}
+							aria-label='Ajustes'
 						>
 							<Settings className='h-5 w-5' />
 							{open && <span className='ml-2'>Ajustes</span>}
@@ -120,11 +135,14 @@ export default function Sidebar() {
 							{open && <span className='ml-2'>Ayuda</span>}
 						</div>
 
-						<Button
+						{/* <Button
 							variant='ghost'
 							size={open ? 'sm' : 'icon'}
 							className={`mt-2 w-full ${open ? 'justify-start' : 'justify-center'}`}
 							onClick={toggleOpen}
+							aria-label={
+								open ? 'Cambiar a vista compacta' : 'Abrir vista expandida'
+							}
 						>
 							{open ? (
 								<>
@@ -134,7 +152,7 @@ export default function Sidebar() {
 							) : (
 								<ChevronRight className='h-4 w-4' />
 							)}
-						</Button>
+						</Button> */}
 					</div>
 				</div>
 			</aside>
