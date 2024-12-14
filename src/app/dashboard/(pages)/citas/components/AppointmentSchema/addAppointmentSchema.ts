@@ -1,9 +1,11 @@
 import { z } from 'zod'
 
 export const addAppointmentSchema = z.object({
-	date: z.date().refine(date => date.getTime() >= Date.now(), {
-		message: 'La fecha de la cita no puede ser menor a la fecha actual',
-	}),
+	date: z
+		.date({ required_error: 'La fecha es requerida' })
+		.refine(date => date.getTime() >= Date.now(), {
+			message: 'Ingrese una fecha valida',
+		}),
 	time: z.string({ required_error: 'La hora es requerida' }),
 	reason: z
 		.string({ required_error: 'El motivo de la cita es obligatorio' })
