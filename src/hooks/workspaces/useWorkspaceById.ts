@@ -14,7 +14,7 @@ export const usePetById = (id: number) => {
 		queryKey: ['pet', id],
 		queryFn: () => {
 			if (!token) throw new Error('No token found')
-			return workspaceService.getWorkspaceById(id, token)
+			return workspaceService.getWorkspaceById(id)
 		},
 		staleTime: 1000 * 60 * 5,
 		refetchOnWindowFocus: true,
