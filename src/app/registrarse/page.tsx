@@ -36,7 +36,11 @@ export default function SignUp() {
 				</h1>
 				<span className='text-muted-foreground'>Solo toma un momento</span>
 
-				<Progress className='mt-4' value={step === 1 ? 50 : 100} />
+				<Progress
+					className='mt-4'
+					value={step === 1 ? 50 : 100}
+					aria-label={`Paso ${step} de 2 completado`}
+				/>
 
 				{step === 1 ? (
 					<AddWorkspaceForm onSuccess={handleWorkspaceSuccess} />
