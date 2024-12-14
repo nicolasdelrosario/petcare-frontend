@@ -28,7 +28,7 @@ export default function Seetings() {
 			</p>
 
 			<Tabs defaultValue='general' className='space-y-4'>
-				<TabsList>
+				<TabsList className='text-gray-800 dark:text-muted-foreground'>
 					<TabsTrigger value='general' className='flex items-center gap-2'>
 						<Settings className='size-4' />
 						Configuración
