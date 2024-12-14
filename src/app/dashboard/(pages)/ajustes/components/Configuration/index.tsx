@@ -35,6 +35,7 @@ export default function Index() {
 						<Switch
 							checked={resolvedTheme === 'dark'}
 							onCheckedChange={checked => setTheme(checked ? 'dark' : 'light')}
+							aria-label='Cambiar tema entre claro y oscuro'
 						/>
 					</div>
 				</CardContent>
