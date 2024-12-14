@@ -2,7 +2,6 @@
 
 // Tanstack Query
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 // Env
 import { env } from '@/config/env'
@@ -25,7 +24,7 @@ export default function QueryClientProv({ children }: ProvidersProps) {
 		<QueryClientProvider client={queryClient}>
 			{children}
 
-			{env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+			{env.NODE_ENV === 'development'}
 		</QueryClientProvider>
 	)
 }
