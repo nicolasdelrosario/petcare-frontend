@@ -21,7 +21,7 @@ import {
 } from '@/components/shadcn'
 
 // Lucide Icons
-import { Phone, IdCard, PawPrint, User } from 'lucide-react'
+import { Phone, IdCard, User } from 'lucide-react'
 
 interface OwnersGridProps {
 	owners: Owner[]
