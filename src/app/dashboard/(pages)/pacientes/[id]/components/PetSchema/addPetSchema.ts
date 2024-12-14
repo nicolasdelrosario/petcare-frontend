@@ -22,9 +22,11 @@ export const addPetSchema = z.object({
 			message: 'El nombre de la raza no debe exceder los 30 caracteres',
 		})
 		.optional(),
-	birthDate: z.date().refine(date => date.getTime() <= Date.now(), {
-		message: 'La fecha de nacimiento no puede ser mayor a la fecha actual',
-	}),
+	birthDate: z
+		.date({ required_error: 'La fecha es requerida' })
+		.refine(date => date.getTime() <= Date.now(), {
+			message: 'Ingrese una fecha valida',
+		}),
 	color: z
 		.string()
 		.min(3, { message: 'Ingrese un color valido (minimo 3 caracteres)' })
