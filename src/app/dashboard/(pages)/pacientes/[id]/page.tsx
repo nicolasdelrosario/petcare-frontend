@@ -26,9 +26,13 @@ export default function Page({ params }: Props) {
 		<>
 			<Header title='Detalles del Propietario' />
 			<MaxWidthWrapper>
-				<div className='lg:grid lg:grid-cols-2 lg:gap-x-4 lg:pt-24 xl:gap-x-8 xl:pt-32'>
-					<PetGrid pets={pets} />
-					<OwnerDetails owner={owner} />
+				<div className='grid lg:grid-cols-2 lg:gap-x-4 lg:pt-12 xl:gap-x-8'>
+					<div className='order-2 max-w-[calc(100%-63px)] xs:max-w-full lg:order-1'>
+						<PetGrid pets={pets} />
+					</div>
+					<div className='order-1 max-w-[calc(100%-63px)] xs:max-w-full lg:order-2'>
+						<OwnerDetails owner={owner} />
+					</div>
 				</div>
 			</MaxWidthWrapper>
 		</>
