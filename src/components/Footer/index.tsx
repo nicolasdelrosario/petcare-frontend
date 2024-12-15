@@ -5,7 +5,7 @@ import { MaxWidthWrapper } from '@/components'
 export default function Footer() {
 	return (
 		<footer className='relative h-20 border-t border-gray-200 bg-white dark:border-gray-400 dark:bg-black'>
-			<MaxWidthWrapper>
+			<MaxWidthWrapper className='mt-4 text-center lg:mt-0'>
 				<div className='flex h-full flex-col items-center justify-center lg:flex-row lg:justify-between'>
 					<div className='pb-4 text-center lg:pb-0 lg:text-left'>
 						<p className='text-sm text-muted-foreground dark:text-gray-100'>
