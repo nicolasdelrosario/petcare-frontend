@@ -81,7 +81,7 @@ export default function AddAppointmentForm({
 				options={
 					pets.data?.map((pet: Pet) => ({
 						id: pet.id,
-						name: pet.name,
+						name: `${pet.name} - ${pet?.owner.name}`,
 					})) ?? []
 				}
 				value={appointmentData.petId?.toString()}
