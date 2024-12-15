@@ -43,15 +43,14 @@ export default function OwnerDetails({ owner }: OwnerDetailsProps) {
 	const handleDelete = () => deleteOwnerMutation.mutate()
 
 	return (
-		<section className='mt-8 lg:mt-4'>
-			<h2 className='mb-4 text-lg font-semibold'>Detalles del Propietario</h2>
+		<section className='mt-8 lg:mt-0'>
 			<Card className='border'>
 				<CardHeader className='border-b p-4'>
 					<CardTitle className='text-md font-semibold'>
 						{owner.name || 'Nombre no especificado.'}
 					</CardTitle>
 				</CardHeader>
-				<CardContent className='space-y-3 p-4'>
+				<CardContent className='space-y-3 p-2 sm:p-4'>
 					<Owner owner={owner} />
 				</CardContent>
 				<CardFooter className='flex flex-col gap-y-3 px-4 pb-4'>
