@@ -1,4 +1,3 @@
-import { UserRol } from './UserRol'
 import { Workspace } from './Workspace'
 import { Appointment } from './Appointment'
 

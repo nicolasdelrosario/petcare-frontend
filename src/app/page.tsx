@@ -56,6 +56,8 @@ export default function Home() {
 							src='https://placehold.co/450x410'
 							alt='Petcare Home Image'
 							className='rounded-md'
+							width={450}
+							height={410}
 						/>
 					</div>
 				</MaxWidthWrapper>
@@ -91,6 +93,8 @@ export default function Home() {
 								src='https://placehold.co/600x500'
 								alt='Petcare Benefits Image'
 								className='rounded-md'
+								width={600}
+								height={500}
 							/>
 						</div>
 					</div>

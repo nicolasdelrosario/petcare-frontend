@@ -16,6 +16,7 @@ export default function ViewToggle() {
 				variant={viewMode === 'card' ? 'default' : 'outline'}
 				size='icon'
 				onClick={() => setViewMode('card')}
+				aria-label='Cambiar a vista de tarjetas'
 			>
 				<LayoutGrid className='size-4' />
 			</Button>
@@ -23,6 +24,7 @@ export default function ViewToggle() {
 				variant={viewMode === 'table' ? 'default' : 'outline'}
 				size='icon'
 				onClick={() => setViewMode('table')}
+				aria-label='Cambiar a vista de tabla'
 			>
 				<List className='size-4' />
 			</Button>
