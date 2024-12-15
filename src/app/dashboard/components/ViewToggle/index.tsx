@@ -11,7 +11,7 @@ export default function ViewToggle() {
 	const { viewMode, setViewMode } = useViewModeStore()
 
 	return (
-		<div className='flex items-center space-x-2'>
+		<div className='hidden items-center space-x-2 lg:flex'>
 			<Button
 				variant={viewMode === 'card' ? 'default' : 'outline'}
 				size='icon'
