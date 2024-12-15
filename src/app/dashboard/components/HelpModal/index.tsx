@@ -24,7 +24,7 @@ interface Props {
 export default function HelpModal({ open, onOpenChange }: Props) {
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className='max-w-2xl'>
+			<DialogContent className='max-w-2xl p-2 xs:p-6'>
 				<DialogHeader>
 					<DialogTitle className='text-2xl'>Ayuda y Soporte</DialogTitle>
 					<DialogDescription>
