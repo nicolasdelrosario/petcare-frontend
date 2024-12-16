@@ -1,5 +1,8 @@
 'use client'
 
+// Auth
+import { useSession } from 'next-auth/react'
+
 // Hooks
 import { useForm } from '@/hooks/useForm'
 import { usePets } from '@/hooks/pets/usePets'
@@ -37,6 +40,7 @@ type AppointmentFormData = Partial<Appointment> & {
 export default function AddAppointmentForm({
 	onSuccess,
 }: AddAppointmentFormProps) {
+	const { data: session } = useSession()
 	const pets = usePets()
 	const createAppointment = useCreateAppointment()
 	const [errors, setErrors] = useState<{ [key: string]: string }>({})
@@ -46,7 +50,7 @@ export default function AddAppointmentForm({
 		handleChange,
 		updateField,
 	} = useForm<Partial<AppointmentFormData>>({
-		userId: 1,
+		userId: session?.user?.userId,
 	} as Partial<AppointmentFormData>)
 
 	const handleSelectPet = (petId: string) => {
