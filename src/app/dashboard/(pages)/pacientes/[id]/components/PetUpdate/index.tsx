@@ -4,17 +4,19 @@ import { Pet, Pet as PetI } from '@/interfaces/Pet'
 // Hooks
 import { useUpdatePet } from '@/hooks/pets/useUpdatePet'
 import { useForm } from '@/hooks/useForm'
+import { useState } from 'react'
 
 // Components
 import { AnimatedInput } from '@/components'
 
 // Shadcn Components
 import { Button } from '@/components/shadcn'
-import { useState } from 'react'
+
+//Schema
 import { updatePetSchema } from '../PetSchema/updatePetSchema'
 
-//Zod
-import { z } from 'zod'
+//Utils
+import { validateWithSchema } from '@/util/validateSchemas'
 
 interface PetEditableFieldsProps {
 	pet: PetI
@@ -32,36 +34,26 @@ export default function PetEditableFields({
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		try {
-			const updatePet = {
-				color: editedPet.color,
-				weight: editedPet.weight,
-				characteristics: editedPet.characteristics,
-			}
 
-			const validateData = updatePetSchema.parse(updatePet)
-			setErrors({})
+		const { data: validateData, errors } = validateWithSchema(
+			updatePetSchema,
+			editedPet
+		)
 
-			updatePetMutation.mutate({
-				id: pet.id,
-				changes: validateData as Omit<
-					Pet,
-					'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
-				>,
-			})
-
-			setIsEditing(false)
-		} catch (error) {
-			if (error instanceof z.ZodError) {
-				const newErrors: { [key: string]: string } = {}
-				error.errors.forEach(err => {
-					if (err.path[0]) {
-						newErrors[err.path[0] as string] = err.message
-					}
-				})
-				setErrors(newErrors)
-			}
+		if (errors) {
+			setErrors(errors)
+			return
 		}
+
+		updatePetMutation.mutate({
+			id: pet.id,
+			changes: validateData as Omit<
+				Pet,
+				'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+			>,
+		})
+
+		setIsEditing(false)
 	}
 
 	return (

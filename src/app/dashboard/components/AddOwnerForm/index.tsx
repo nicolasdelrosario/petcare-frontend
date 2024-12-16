@@ -20,8 +20,8 @@ import { Button } from '@/components/shadcn'
 // Lucide Icons
 import { Mail, Phone, IdCard, MapPin } from 'lucide-react'
 
-//Zod
-import { z } from 'zod'
+// Utils
+import { validateWithSchema } from '@/util/validateSchemas'
 
 interface AddOwnerFormProps {
 	onSuccess: () => void
@@ -44,23 +44,16 @@ export default function AddOwnerForm({ onSuccess }: AddOwnerFormProps) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		try {
-			addOwnerSchema.parse(ownerData)
-			setErrors({})
 
-			createOwner.mutate(ownerData)
-			onSuccess()
-		} catch (error) {
-			if (error instanceof z.ZodError) {
-				const newErrors: { [key: string]: string } = {}
-				error.errors.forEach(err => {
-					if (err.path[0]) {
-						newErrors[err.path[0] as string] = err.message
-					}
-				})
-				setErrors(newErrors)
-			}
-		}
+		const { data: validData, errors } = validateWithSchema(
+			addOwnerSchema,
+			ownerData
+		)
+
+		if (errors) return setErrors(errors)
+
+		createOwner.mutate(validData)
+		onSuccess()
 	}
 
 	return (

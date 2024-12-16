@@ -21,7 +21,7 @@ export default function Search({
 			<Input
 				type='search'
 				placeholder={placeholder}
-				className='max-w-sm'
+				className='mt-0 max-w-sm'
 				value={searchTerm}
 				onChange={e => setSearchTerm(e.target.value)}
 			/>

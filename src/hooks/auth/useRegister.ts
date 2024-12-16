@@ -10,7 +10,7 @@ import { RegisterCredentials } from '@/interfaces/auth'
 // Hooks
 import { useToast } from '@/hooks/useToast'
 
-export const useRegister = () => {
+export const useRegister = (onSuccessCallback?: () => void) => {
 	const queryClient = useQueryClient()
 	const { toast } = useToast()
 
@@ -20,7 +20,9 @@ export const useRegister = () => {
 		},
 
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['user'] })
+			queryClient.invalidateQueries({ queryKey: ['users'] })
+
+			if (onSuccessCallback) onSuccessCallback()
 			toast({
 				title: 'Éxito',
 				description: 'El usuario ha sido creado exitosamente.',

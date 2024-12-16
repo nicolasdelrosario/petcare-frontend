@@ -16,22 +16,26 @@ export const useLogin = (onSuccessCallback?: () => void) => {
 
 	return useMutation({
 		mutationFn: async (credentials: LoginCredentials) => {
-			return await signIn('credentials', {
+			const response = await signIn('credentials', {
 				email: credentials.email,
 				password: credentials.password,
 				redirect: false,
 			})
+
+			if (response?.error) throw new Error(response.error)
+
+			return response
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['me'] })
+			queryClient.invalidateQueries({ queryKey: ['signin'] })
 
 			if (onSuccessCallback) onSuccessCallback()
 		},
-		onError: (error: Error) => {
+		onError: () => {
 			toast({
 				variant: 'destructive',
 				title: 'Error',
-				description: error.message || 'No ha sido posible iniciar sesión.',
+				description: 'No ha sido posible iniciar sesión.',
 			})
 		},
 	})

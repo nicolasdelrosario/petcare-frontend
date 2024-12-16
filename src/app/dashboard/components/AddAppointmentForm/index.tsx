@@ -1,9 +1,13 @@
 'use client'
 
+// Auth
+import { useSession } from 'next-auth/react'
+
 // Hooks
 import { useForm } from '@/hooks/useForm'
 import { usePets } from '@/hooks/pets/usePets'
 import { useCreateAppointment } from '@/hooks/appointments/useCreateAppointment'
+import { useState } from 'react'
 
 // Interfaces
 import { Appointment } from '@/interfaces/Appointment'
@@ -18,6 +22,12 @@ import { Button } from '@/components/shadcn'
 // Lucide Icons
 import { Clock, NotepadText } from 'lucide-react'
 
+//Schemas
+import { addAppointmentSchema } from '../../(pages)/citas/components/AppointmentSchema/addAppointmentSchema'
+
+//Utils
+import { validateWithSchema } from '@/util/validateSchemas'
+
 interface AddAppointmentFormProps {
 	onSuccess: () => void
 }
@@ -30,15 +40,17 @@ type AppointmentFormData = Partial<Appointment> & {
 export default function AddAppointmentForm({
 	onSuccess,
 }: AddAppointmentFormProps) {
+	const { data: session } = useSession()
 	const pets = usePets()
 	const createAppointment = useCreateAppointment()
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const {
 		formData: appointmentData,
 		handleChange,
 		updateField,
 	} = useForm<Partial<AppointmentFormData>>({
-		userId: 1,
+		userId: session?.user?.userId,
 	} as Partial<AppointmentFormData>)
 
 	const handleSelectPet = (petId: string) => {
@@ -47,7 +59,21 @@ export default function AddAppointmentForm({
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		createAppointment.mutate(appointmentData)
+
+		const { data: validData, errors } = validateWithSchema(
+			addAppointmentSchema,
+			{
+				...appointmentData,
+				date: new Date(appointmentData.date + 'T00:00:00'),
+			}
+		)
+
+		if (errors) {
+			setErrors(errors)
+			return
+		}
+
+		createAppointment.mutate(validData)
 		onSuccess()
 	}
 
@@ -59,7 +85,7 @@ export default function AddAppointmentForm({
 				options={
 					pets.data?.map((pet: Pet) => ({
 						id: pet.id,
-						name: pet.name,
+						name: `${pet.name} - ${pet?.owner.name}`,
 					})) ?? []
 				}
 				value={appointmentData.petId?.toString()}
@@ -73,6 +99,7 @@ export default function AddAppointmentForm({
 					label='Fecha'
 					type='date'
 					onChange={handleChange}
+					error={errors.date || ''}
 				/>
 				<AnimatedInput
 					key='time'
@@ -81,6 +108,7 @@ export default function AddAppointmentForm({
 					type='time'
 					onChange={handleChange}
 					icon={<Clock />}
+					error={errors.time || ''}
 				/>
 			</div>
 
@@ -91,10 +119,11 @@ export default function AddAppointmentForm({
 				type='text'
 				onChange={handleChange}
 				icon={<NotepadText />}
+				error={errors.reason || ''}
 			/>
 
 			<div className='mt-8 flex justify-end'>
-				<Button type='submit'>Agregar Propietario</Button>
+				<Button type='submit'>Agendar Cita</Button>
 			</div>
 		</form>
 	)

@@ -39,7 +39,7 @@ export default function AppointmentDetails({
 			) : (
 				<>
 					<Appointment appointment={appointment} />
-					<div className='flex flex-col-reverse pt-6 sm:flex-row sm:justify-end sm:space-x-2'>
+					<div className='flex flex-col gap-y-2 pt-6 sm:flex-row sm:justify-end sm:space-x-2'>
 						<Button variant='outline' onClick={() => setIsEditing(true)}>
 							Editar
 						</Button>

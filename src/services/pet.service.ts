@@ -40,6 +40,6 @@ export const petService = {
 
 	deletePet: async (id: number, token: string): Promise<void> => {
 		const api = createApiInstance(token)
-		await api.patch(`${PATH_PETS}/${id}`)
+		await api.delete(`${PATH_PETS}/${id}`)
 	},
 }

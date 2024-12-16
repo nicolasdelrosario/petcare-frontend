@@ -20,13 +20,12 @@ export const authService = {
 
 	register: async (credentials: RegisterCredentials) => {
 		const api = createApiInstance()
-		const { name, email, password } = credentials
-		//! TODO: Add workspaceId
+		const { name, email, password, workspaceId } = credentials
 		const { data } = await api.post('/auth/register', {
 			name,
 			email,
 			password,
-			workspaceId: 1,
+			workspaceId,
 		})
 
 		if (data.error) throw data
