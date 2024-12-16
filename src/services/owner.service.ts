@@ -43,6 +43,6 @@ export const ownerService = {
 
 	deleteOwner: async (id: number, token: string): Promise<void> => {
 		const api = createApiInstance(token)
-		await api.patch(`${PATH_OWNER}/${id}`)
+		await api.delete(`${PATH_OWNER}/${id}`)
 	},
 }

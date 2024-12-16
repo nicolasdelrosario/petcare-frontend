@@ -19,7 +19,7 @@ import { Button } from '@/components/shadcn'
 import { addPetSchema } from '../../(pages)/pacientes/[id]/components/PetSchema/addPetSchema'
 
 //Zod
-import { z } from 'zod'
+import { validateWithSchema } from '@/util/validateSchemas'
 
 interface AddPetFormProps {
 	onSuccess: () => void
@@ -77,23 +77,19 @@ export default function AddPetForm({ onSuccess }: AddPetFormProps) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		try {
-			addPetSchema.parse(petData)
-			setErrors({})
 
-			createPet.mutate(petData)
-			onSuccess()
-		} catch (error) {
-			if (error instanceof z.ZodError) {
-				const newErrors: { [key: string]: string } = {}
-				error.errors.forEach(err => {
-					if (err.path[0]) {
-						newErrors[err.path[0] as string] = err.message
-					}
-				})
-				setErrors(newErrors)
-			}
+		const { data: validData, errors } = validateWithSchema(addPetSchema, {
+			...petData,
+			birthDate: petData.birthDate ? new Date(petData.birthDate) : undefined,
+		})
+
+		if (errors) {
+			setErrors(errors)
+			return
 		}
+
+		createPet.mutate(validData)
+		onSuccess()
 	}
 
 	return (

@@ -46,6 +46,6 @@ export const appointmentService = {
 
 	deleteAppointment: async (id: number, token: string): Promise<void> => {
 		const api = createApiInstance(token)
-		await api.patch(`${PATH_APPOINTMENTS}/${id}`)
+		await api.delete(`${PATH_APPOINTMENTS}/${id}`)
 	},
 }

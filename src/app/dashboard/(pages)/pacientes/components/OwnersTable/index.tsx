@@ -36,7 +36,8 @@ export default function OwnersTable({ owners }: OwnersTableProps) {
 					<TableRow>
 						<TableHead>Nombre</TableHead>
 						<TableHead>DNI</TableHead>
-						<TableHead>Mascotas</TableHead>
+						<TableHead>Teléfono</TableHead>
+						{/* <TableHead>Mascotas</TableHead> */}
 						<TableHead>Correo</TableHead>
 					</TableRow>
 				</TableHeader>
@@ -44,9 +45,16 @@ export default function OwnersTable({ owners }: OwnersTableProps) {
 					{owners.map(owner => (
 						<TableRow key={owner.id}>
 							<TableCell>{owner.name}</TableCell>
-							<TableCell>{owner?.dni}</TableCell>
-							<TableCell>{owner.pets && owner?.pets.length}</TableCell>
-							<TableCell>{owner?.email}</TableCell>
+							<TableCell>
+								{owner?.dni ? owner?.dni : 'DNI no especificado.'}
+							</TableCell>
+							<TableCell>
+								{owner?.phone ? owner?.phone : 'Teléfono no especificado.'}
+							</TableCell>
+							{/* <TableCell>{owner.pets && owner?.pets.length}</TableCell> */}
+							<TableCell>
+								{owner?.email ? owner?.email : 'Correo no especificado.'}
+							</TableCell>
 							<TableCell>
 								<Link
 									href={`/dashboard/pacientes/${owner.id}`}

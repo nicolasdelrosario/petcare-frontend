@@ -15,7 +15,14 @@ export {
 } from './table'
 
 // Card
-export { Card, CardContent, CardHeader, CardTitle, CardFooter } from './card'
+export {
+	Card,
+	CardContent,
+	CardHeader,
+	CardTitle,
+	CardFooter,
+	CardDescription,
+} from './card'
 
 // Dialog
 export {
@@ -63,3 +70,15 @@ export { Progress } from './progress'
 
 // Skeleton
 export { Skeleton } from './skeleton'
+
+// Tabs
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs'
+
+// Switch
+export { Switch } from './react-switch'
+
+// Separator
+export { Separator } from './separator'
+
+// Badge
+export { Badge, badgeVariants } from './badge'

@@ -17,7 +17,7 @@ export default function Layout({ children }: RootLayoutProps) {
 	const { open } = useSidebarStore()
 
 	return (
-		<div className='flex min-h-screen'>
+		<div className='flex min-h-screen overflow-hidden'>
 			<Sidebar />
 			<div
 				className={cn(

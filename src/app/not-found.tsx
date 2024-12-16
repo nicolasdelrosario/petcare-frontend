@@ -12,14 +12,15 @@ export default function NotFound() {
 			<div className='w-full max-w-md space-y-6 text-center'>
 				<div className='relative'>
 					<div className='absolute -top-2 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl' />
-					<Compass className='mx-auto h-24 w-24 animate-pulse text-primary' />
+					<Compass className='mx-auto h-24 w-24 text-primary' />
 				</div>
 
 				<div className='relative space-y-3'>
-					<h1 className='text-4xl font-bold tracking-tight'>Not Found</h1>
+					<h1 className='text-3xl font-bold tracking-tight'>
+						404 - No Encontrado
+					</h1>
 					<p className='text-base text-muted-foreground'>
-						The page you&apos;re looking for doesn&apos;t exist or an other
-						error ocurred.
+						La página que busca no existe o se ha producido otro error.
 					</p>
 				</div>
 
@@ -30,7 +31,7 @@ export default function NotFound() {
 						className='gap-2'
 					>
 						<Home className='h-4 w-4' />
-						Return Home
+						Volver a inicio
 					</Button>
 					<Button
 						variant='outline'
@@ -38,7 +39,7 @@ export default function NotFound() {
 						className='gap-2'
 					>
 						<MoveLeft className='h-4 w-4' />
-						Go Back
+						Volver
 					</Button>
 				</div>
 			</div>
