@@ -48,6 +48,14 @@ export default function HelpModal({ open, onOpenChange }: Props) {
 												delrosariolozanonicolas@gmail.com
 											</Link>
 										</p>
+										<p className='text-sm text-muted-foreground'>
+											<Link
+												href='mailto:geremy.ocsa11@gmail.com'
+												className='hover:underline'
+											>
+												geremy.ocsa11@gmail.com
+											</Link>
+										</p>
 									</div>
 								</div>
 
@@ -57,7 +65,11 @@ export default function HelpModal({ open, onOpenChange }: Props) {
 										<p className='font-medium'>Teléfono</p>
 										<p className='text-sm text-muted-foreground'>
 											<Link href='tel:913-621-524' className='hover:underline'>
-												913-621-524
+												913621524
+											</Link>
+											{' - '}
+											<Link href='tel:985-282-618' className='hover:underline'>
+												985282618
 											</Link>
 										</p>
 									</div>
