@@ -7,9 +7,10 @@ export const updatePetSchema = z.object({
 		.max(20, { message: 'El color no debe exceder los 20 caracteres' })
 		.optional(),
 	weight: z
-		.string()
-		.refine(weight => !isNaN(parseFloat(weight)), {
-			message: 'El peso debe contener solo numeros',
+		.string({ message: 'Ingrese un peso válido' })
+		.regex(/^\d+(\.\d+)?$/, { message: 'Ingrese un peso válido' })
+		.refine(weight => parseFloat(weight) > 0, {
+			message: 'Ingrese un peso válido',
 		})
 		.optional(),
 	characteristics: z

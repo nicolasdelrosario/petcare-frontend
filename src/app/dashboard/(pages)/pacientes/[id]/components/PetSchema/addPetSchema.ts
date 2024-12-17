@@ -29,13 +29,14 @@ export const addPetSchema = z.object({
 		}),
 	color: z
 		.string()
-		.min(3, { message: 'Ingrese un color valido (minimo 3 caracteres)' })
+		.min(3, { message: 'Ingrese un color válido (minimo 3 caracteres)' })
 		.max(20, { message: 'El color no debe exceder los 20 caracteres' })
 		.optional(),
 	weight: z
-		.string()
-		.refine(weight => !isNaN(parseFloat(weight)), {
-			message: 'El peso debe contener solo numeros',
+		.string({ message: 'Ingrese un peso válido' })
+		.regex(/^\d+(\.\d+)?$/, { message: 'Ingrese un peso válido' })
+		.refine(weight => parseFloat(weight) > 0, {
+			message: 'Ingrese un peso válido',
 		})
 		.optional(),
 	characteristics: z
