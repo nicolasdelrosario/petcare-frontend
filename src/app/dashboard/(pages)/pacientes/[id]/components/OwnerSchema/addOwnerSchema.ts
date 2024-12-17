@@ -10,8 +10,7 @@ export const addOwnerSchema = z.object({
 		}),
 	dni: z
 		.string({ required_error: 'El DNI es requerido' })
-		.min(1, { message: 'El DNI es requerido' })
-		.length(8, { message: 'El DNI debe tener exactamente 8 numeros' })
+		.min(8, { message: 'Ingrese un DNI valido' })
 		.refine(dni => /^\d+$/.test(dni), {
 			message: 'El DNI debe contener solo numeros',
 		}),
@@ -22,9 +21,9 @@ export const addOwnerSchema = z.object({
 		.optional(),
 	phone: z
 		.string()
-		.length(9, { message: 'El telefono debe tener exactamente 9 digitos' })
+		.length(9, { message: 'Ingrese un telefono valido' })
 		.refine(phone => /^\d+$/.test(phone), {
-			message: 'El telefono debe contener solo numeros',
+			message: 'Ingrese un numero valido',
 		})
 		.refine(phone => phone.startsWith('9'), {
 			message: 'El formato debe ser 9xx-xxx-xxx',
