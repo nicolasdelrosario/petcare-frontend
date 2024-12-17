@@ -14,6 +14,11 @@ import { User } from '@/interfaces/User'
 import { useForm } from '@/hooks/useForm'
 import { useUpdateUser } from '@/hooks/users/useUpdateUser'
 import { AnimatedInput } from '@/components'
+import { validateWithSchema } from '@/util/validateSchemas'
+import { userSchema } from './schema'
+
+//Hooks
+import { useState } from 'react'
 
 interface Props {
 	user: User
@@ -22,17 +27,24 @@ interface Props {
 export default function UserDetails({ user }: Props) {
 	const updateUser = useUpdateUser()
 	const { formData: editedUser, handleChange } = useForm<User>(user)
+	const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
 	const handleUpdate = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { id, createdAt, updatedAt, deletedAt, role, workspace, ...changes } =
+		const { data: validData, errors } = validateWithSchema(
+			userSchema,
 			editedUser
+		)
+
+		if (errors) {
+			setErrors(errors)
+			return
+		}
 
 		updateUser.mutate({
 			id: user.id,
-			changes,
+			changes: validData as Omit<User, 'createdAt' | 'updatedAt' | 'deletedAt'>,
 		})
 	}
 
@@ -50,6 +62,7 @@ export default function UserDetails({ user }: Props) {
 						label='Email'
 						defaultValue={user.email || ''}
 						onChange={handleChange}
+						error={errors.email}
 					/>
 
 					<AnimatedInput
@@ -57,6 +70,7 @@ export default function UserDetails({ user }: Props) {
 						label='Nombre'
 						defaultValue={user.name || ''}
 						onChange={handleChange}
+						error={errors.name}
 					/>
 
 					<AnimatedInput
@@ -64,6 +78,7 @@ export default function UserDetails({ user }: Props) {
 						label='Telefono'
 						defaultValue={user.phone || ''}
 						onChange={handleChange}
+						error={errors.phone}
 					/>
 
 					{user.dni === null && (
@@ -72,6 +87,7 @@ export default function UserDetails({ user }: Props) {
 							label='DNI'
 							defaultValue={user.dni || ''}
 							onChange={handleChange}
+							error={errors.dni}
 						/>
 					)}
 
